@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Participant
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -56,6 +57,18 @@ class Participant
      * @ORM\Column(type="boolean")
      */
     private $actif;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Site::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $sites_no_site;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Inscription::class, inversedBy="participants_no_participant")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $inscriptions_participants;
 
     public function getId(): ?int
     {
@@ -154,6 +167,30 @@ class Participant
     public function setActif(bool $actif): self
     {
         $this->actif = $actif;
+
+        return $this;
+    }
+
+    public function getSitesNoSite(): ?Site
+    {
+        return $this->sites_no_site;
+    }
+
+    public function setSitesNoSite(?Site $sites_no_site): self
+    {
+        $this->sites_no_site = $sites_no_site;
+
+        return $this;
+    }
+
+    public function getInscriptionsParticipants(): ?Inscription
+    {
+        return $this->inscriptions_participants;
+    }
+
+    public function setInscriptionsParticipants(?Inscription $inscriptions_participants): self
+    {
+        $this->inscriptions_participants = $inscriptions_participants;
 
         return $this;
     }

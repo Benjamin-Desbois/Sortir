@@ -57,6 +57,30 @@ class Sortie
      */
     private $urlPhoto;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Participant::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $organisateur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Lieu::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $lieux_no_lieu;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Etat::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $etats_no_etat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Inscription::class, inversedBy="sorties_no_sortie")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $inscriptions_sorties;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -154,6 +178,54 @@ class Sortie
     public function setUrlPhoto(?string $urlPhoto): self
     {
         $this->urlPhoto = $urlPhoto;
+
+        return $this;
+    }
+
+    public function getOrganisateur(): ?Participant
+    {
+        return $this->organisateur;
+    }
+
+    public function setOrganisateur(?Participant $organisateur): self
+    {
+        $this->organisateur = $organisateur;
+
+        return $this;
+    }
+
+    public function getLieuxNoLieu(): ?Lieu
+    {
+        return $this->lieux_no_lieu;
+    }
+
+    public function setLieuxNoLieu(?Lieu $lieux_no_lieu): self
+    {
+        $this->lieux_no_lieu = $lieux_no_lieu;
+
+        return $this;
+    }
+
+    public function getEtatsNoEtat(): ?Etat
+    {
+        return $this->etats_no_etat;
+    }
+
+    public function setEtatsNoEtat(?Etat $etats_no_etat): self
+    {
+        $this->etats_no_etat = $etats_no_etat;
+
+        return $this;
+    }
+
+    public function getInscriptionsSorties(): ?Inscription
+    {
+        return $this->inscriptions_sorties;
+    }
+
+    public function setInscriptionsSorties(?Inscription $inscriptions_sorties): self
+    {
+        $this->inscriptions_sorties = $inscriptions_sorties;
 
         return $this;
     }
