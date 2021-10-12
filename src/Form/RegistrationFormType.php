@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Participant;
+use App\Entity\Site;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -18,11 +20,21 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('pseudo')
+            ->add('nom')
+            ->add('prenom')
+            ->add('telephone')
+            ->add('mail')
+            ->add('sites_no_site',EntityType::class,[ 'class'=>Site::class,
+                'choice_label'=>function($site){
+                    return $site->getNom();
+                }])
+            ->add('administrateur')
+            ->add('actif')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'Vous devez accepter les Termes et Conditions',
                     ]),
                 ],
             ])
@@ -37,9 +49,9 @@ class RegistrationFormType extends AbstractType
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères',
                         // max length allowed by Symfony for security reasons
-                        'max' => 4096,
+                        'max' => 25,
                     ]),
                 ],
             ])
