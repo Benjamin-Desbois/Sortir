@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ParticipantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -68,16 +70,21 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $sites_no_site;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Inscription::class, inversedBy="participants_no_participant")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $inscriptions_participants;
 
     /**
      * @ORM\Column(type="json")
      */
     private $roles = [];
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Sortie::class, inversedBy="participants_no_participant")
+     */
+    private $sorties_no_sortie;
+
+    public function __construct()
+    {
+        $this->sorties_no_sortie = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -232,17 +239,6 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getInscriptionsParticipants(): ?Inscription
-    {
-        return $this->inscriptions_participants;
-    }
-
-    public function setInscriptionsParticipants(?Inscription $inscriptions_participants): self
-    {
-        $this->inscriptions_participants = $inscriptions_participants;
-
-        return $this;
-    }
 
     /**
      * Returning a salt is only needed, if you are not using a modern
@@ -262,5 +258,29 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|Sortie[]
+     */
+    public function getSortiesNoSortie(): Collection
+    {
+        return $this->sorties_no_sortie;
+    }
+
+    public function addSortiesNoSortie(Sortie $sortiesNoSortie): self
+    {
+        if (!$this->sorties_no_sortie->contains($sortiesNoSortie)) {
+            $this->sorties_no_sortie[] = $sortiesNoSortie;
+        }
+
+        return $this;
+    }
+
+    public function removeSortiesNoSortie(Sortie $sortiesNoSortie): self
+    {
+        $this->sorties_no_sortie->removeElement($sortiesNoSortie);
+
+        return $this;
     }
 }

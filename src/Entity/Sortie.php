@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SortieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -76,10 +78,15 @@ class Sortie
     private $etats_no_etat;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Inscription::class, inversedBy="sorties_no_sortie")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity=Participant::class, mappedBy="sorties_no_sortie")
      */
-    private $inscriptions_sorties;
+    private $participants_no_participant;
+
+    public function __construct()
+    {
+        $this->participants_no_participant = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -218,15 +225,31 @@ class Sortie
         return $this;
     }
 
-    public function getInscriptionsSorties(): ?Inscription
+    /**
+     * @return Collection|Participant[]
+     */
+    public function getParticipantsNoParticipant(): Collection
     {
-        return $this->inscriptions_sorties;
+        return $this->participants_no_participant;
     }
 
-    public function setInscriptionsSorties(?Inscription $inscriptions_sorties): self
+    public function addParticipantsNoParticipant(Participant $participantsNoParticipant): self
     {
-        $this->inscriptions_sorties = $inscriptions_sorties;
+        if (!$this->participants_no_participant->contains($participantsNoParticipant)) {
+            $this->participants_no_participant[] = $participantsNoParticipant;
+            $participantsNoParticipant->addSortiesNoSortie($this);
+        }
 
         return $this;
     }
+
+    public function removeParticipantsNoParticipant(Participant $participantsNoParticipant): self
+    {
+        if ($this->participants_no_participant->removeElement($participantsNoParticipant)) {
+            $participantsNoParticipant->removeSortiesNoSortie($this);
+        }
+
+        return $this;
+    }
+
 }
