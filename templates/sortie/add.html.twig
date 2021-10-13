@@ -1,21 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% block title %}Creation de sortie !{% endblock %}
+
+{% block contenu %}
 
 {{ form_start(formSortie) }}
-{{ form_row(formSortie.nom) }}
-{{ form_row(formSortie.datedebut) }}
-{{ form_row(formSortie.duree) }}
-{{ form_row(formSortie.datecloture) }}
-{{ form_row(formSortie.nbinscriptionsmax) }}
-{{ form_row(formSortie.descriptioninfos) }}
-{{ form_row(formSortie.etatsortie) }}
-{{ form_row(formSortie.urlPhoto) }}
-{{ form_row(formSortie.organisateur) }}
-{{ form_row(formSortie.lieux_no_lieu) }}
-{{ form_row(formSortie.etats_no_etat) }}
-{{ form_row(formSortie.inscriptions_sorties) }}
-<input type="submit" value="Ajouter la sortie">
+    {{ form_row(formSortie.nom, {
+        label: "Nom de l'événement :"
+    }) }}
+    <br>
+    {{ form_row(formSortie.datedebut, {
+        label: "Date de début d'événement :"
+    }) }}
+    <br>
+    {{ form_row(formSortie.duree, {
+        label: "Durée de l'événement :"
+    }) }}
+    <br>
+    {{ form_row(formSortie.datecloture, {
+        label: "Date de fin d'événement :"
+    }) }}
+    <br>
+    {{ form_row(formSortie.nbinscriptionsmax, {
+        label: 'Nombre de participants maximum :'
+    }) }}
+    <br>
+    {{ form_row(formSortie.descriptioninfos, {
+        label: 'Description :'
+    }) }}
+    <br>
+    {{ form_row(formSortie.urlPhoto, {
+        label: 'Photos : '
+    }) }}
+    <br>
+    {{ form_row(formSortie.organisateur, {
+        label: "Organisateur de l'événement : "
+    }) }}
+    <br>
+    {{ form_row(formSortie.lieux_no_lieu, {
+        label: "Lieu de l'événement : "
+    }) }}
+    <br>
+    {{ form_row(formSortie.etats_no_etat, {
+        label: "État de l'événement : "
+    }) }}
+    <br>
+<input type="submit" value="Enregistrer">
+    <input type="submit" value="Publiez la sortie">
+        <input type="submit" value="Annuler">
 {{ form_end(formSortie) }}
 
 {% endblock %}
