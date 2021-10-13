@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sortie{% endblock %}
+
+{% block contenu %}
+
+<h1>{{ sortie.nom }}</h1>
+
+    <label>{{ sortie.duree }}</label>
+    <label>{{ sortie.datedebut |date("d/m/Y") }}</label>
+    <label>{{ sortie.datecloture |date("d/m/Y") }}</label>
+    <label>{{ sortie.nbinscriptionsmax }}</label>
+    <label>{{ sortie.descriptioninfos }}</label>
+    <label>{{ sortie.urlPhoto }}</label>
+    <label>{{ sortie.organisateur }}</label>
+
+
+
+{% endblock %}
