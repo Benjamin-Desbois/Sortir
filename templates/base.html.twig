@@ -35,7 +35,7 @@
                             <a class="nav-link" href="{{ path('app_profil') }}">Mon profil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Se déconnecter</a>
+                            <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
                         </li>
                     </ul>
                 </div>
@@ -52,7 +52,7 @@
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
             <li class="nav-item"><a href="{{ path('app_home') }}" class="nav-link px-2 text-muted">Accueil</a></li>
             <li class="nav-item"><a href="{{ path('app_profil') }}" class="nav-link px-2 text-muted">Mon profil</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Se déconnecter</a></li>
+            <li class="nav-item"><a href="{{ path('app_logout') }}" class="nav-link px-2 text-muted">Se déconnecter</a></li>
         </ul>
         <p class="text-center text-muted">Pour un événement à votre image</p>
         <p class="text-center text-muted">&copy; {{ "now"|date("Y") }} Sorteam, Inc</p>
