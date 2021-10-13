@@ -23,16 +23,16 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Villes</a>
+                            <a class="nav-link" href="{{ path('app_ville') }}">Villes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Sites</a>
+                            <a class="nav-link" href="{{ path('app_site') }}">Sites</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                            <a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Mon profil</a>
+                            <a class="nav-link" href="{{ path('app_profil') }}">Mon profil</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Se déconnecter</a>
@@ -50,8 +50,8 @@
     <footer class="py-3 my-4">
         <hr>
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Accueil</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Mon profil</a></li>
+            <li class="nav-item"><a href="{{ path('app_home') }}" class="nav-link px-2 text-muted">Accueil</a></li>
+            <li class="nav-item"><a href="{{ path('app_profil') }}" class="nav-link px-2 text-muted">Mon profil</a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Se déconnecter</a></li>
         </ul>
         <p class="text-center text-muted">Pour un événement à votre image</p>
