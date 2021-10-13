@@ -63,8 +63,8 @@
             </div>
 
             <div class="d-grid gap-2 col-2 mx-auto">
-                    <button class="btn btn-lg btn-dark" type="submit">Connexion</button>
-                    <button class="btn btn-lg btn-dark" type="button">Inscription</button>
+                <button class="btn btn-lg btn-dark" type="submit">Connexion</button>
+                <a href="{{ path('app_register') }}" class="btn btn-lg btn-dark" role="button" data-bs-toggle="button">Inscription</a>
             </div>
 
             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
