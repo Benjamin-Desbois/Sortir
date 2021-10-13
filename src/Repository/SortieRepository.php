@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +19,19 @@ class SortieRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Sortie::class);
     }
+
+    public function findAllwithPists($nbSortie, $numPage) {
+        $qb = $this->createQueryBuilder('a')
+            ->join('a.pists','p')
+            ->addSelect('p');
+        $qb->setMaxResults($nbSortie);
+        $qb->setFirstResult($numPage*$nbSortie);
+        $query = $qb->getQuery();
+        return new Paginator($query);
+    }
+
+
+
 
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
