@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Creation de sortie !{% endblock %}
+
 {% block body %}
 
 {{ form_start(formSortie) }}
@@ -9,13 +11,13 @@
 {{ form_row(formSortie.datecloture) }}
 {{ form_row(formSortie.nbinscriptionsmax) }}
 {{ form_row(formSortie.descriptioninfos) }}
-{{ form_row(formSortie.etatsortie) }}
 {{ form_row(formSortie.urlPhoto) }}
 {{ form_row(formSortie.organisateur) }}
 {{ form_row(formSortie.lieux_no_lieu) }}
 {{ form_row(formSortie.etats_no_etat) }}
-{{ form_row(formSortie.inscriptions_sorties) }}
-<input type="submit" value="Ajouter la sortie">
+<input type="submit" value="Enregistrer">
+    <input type="submit" value="Publiez la sortie">
+        <input type="submit" value="Annuler">
 {{ form_end(formSortie) }}
 
 {% endblock %}
