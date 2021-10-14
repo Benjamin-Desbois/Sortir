@@ -5,3 +5,13 @@
     background-color:bisque;
     font-family: "Gill Sans", sans-serif;
 }
+
+#creation{
+    margin: 1em;
+}
+
+.table-wrapper{
+    max-height: 300px;
+    overflow: auto;
+    display:inline-block;
+}

@@ -30,9 +30,6 @@ class SortieRepository extends ServiceEntityRepository
         return new Paginator($query);
     }
 
-
-
-
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
     //  */
