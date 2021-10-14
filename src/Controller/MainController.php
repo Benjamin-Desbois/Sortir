@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Repository\ParticipantRepository;
-use App\Repository\SiteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +18,8 @@ class MainController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         } else {
-            return $this->render('main/index.html.twig', []);
+            $user = $this->getUser();
+            return $this->render('main/index.html.twig', ['user'=>$user]);
         }
     }
 
@@ -45,11 +45,6 @@ class MainController extends AbstractController
     public function site(): Response
     {
         return $this->render('admin/site.html.twig', []);
-    }
-
-    public function detail($id, ParticipantRepository $repository): Response{
-        $user = $repository->find($id);
-        return $this->render('index.html.twig', ['user'=>$user]);
     }
 
 }
