@@ -4,6 +4,13 @@
 
 {% block contenu %}
     <div class="text-center">
-        <h1>On est dans mon profil! ✅</h1>
+        <h1>Mon Profil</h1>
     </div>
+    Pseudo : {{ user.pseudo }}<br>
+    Nom : {{ user.nom }}<br>
+    Prénom : {{ user.prenom }}<br>
+    N° de Téléphone : {{ user.telephone }}<br>
+    E-mail : {{ user.mail }}<br>
+    Site : {{ site.nom }}
+
 {% endblock %}

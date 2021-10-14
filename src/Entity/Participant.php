@@ -51,7 +51,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=255)
      */
     private $mot_de_passe;
 
@@ -65,8 +65,10 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $actif;
 
+
+
     /**
-     * @ORM\ManyToOne(targetEntity=Site::class)
+     * @ORM\ManyToOne(targetEntity=Site::class, cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $sites_no_site;
