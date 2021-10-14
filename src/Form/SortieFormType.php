@@ -21,7 +21,6 @@ class SortieFormType extends AbstractType
             ->add('urlPhoto')
             ->add('organisateur')
             ->add('lieux_no_lieu')
-            ->add('etats_no_etat')
         ;
     }
 

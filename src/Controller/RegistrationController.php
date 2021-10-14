@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Participant;
 use App\Form\RegistrationFormType;
+use App\Repository\ParticipantRepository;
+use App\Repository\SiteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,7 +42,18 @@ class RegistrationController extends AbstractController
         }
 
         return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
+            'registrationForm' => $form->createView()
         ]);
+    }
+
+    /** @Route ("/profil/{id}", name="profilDetail", requirements={"id":"\d+"}) */
+    public function detail($id, ParticipantRepository $repository, SiteRepository  $siteRepo): Response{
+        $user = $repository->find($id);
+        $site = $user->getSitesNoSite();
+
+        $user->setSitesNoSite($siteRepo->find($user->getSitesNoSite()->getId()));
+
+        //dd($user);
+        return $this->render('main/profil.html.twig', ['user'=>$user, 'site'=>$site]);
     }
 }

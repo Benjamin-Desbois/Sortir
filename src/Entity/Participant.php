@@ -65,8 +65,10 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $actif;
 
+
+
     /**
-     * @ORM\ManyToOne(targetEntity=Site::class)
+     * @ORM\ManyToOne(targetEntity=Site::class, cascade={"all"}, fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
      */
     private $sites_no_site;
