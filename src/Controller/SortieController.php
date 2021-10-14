@@ -39,10 +39,11 @@ class SortieController extends AbstractController
             $em->persist($sortie);
             $em->flush();
             //$this->addFlash('success', 'La sortie '.$sortie->getNom().' a bien été ajouté');
-            return $this->redirectToRoute('app_home', ['id' => $sortie->getId()]);
+            return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('sortie/add.html.twig', ['formSortie' => $form->createView(), 'orga' => $orga]);
+        return $this->render('sortie/add.html.twig', ['formSortie' => $form->createView(),
+            'orga' => $orga]);
     }
 
     /** @Route ("/sortie/{id}", name="detail", requirements={"id":"\d+"}) */
@@ -52,8 +53,9 @@ class SortieController extends AbstractController
         $lieu = $sortie->getLieuxNoLieu();
         $ville = $lieu->getVillesNoVille();
 
-
-        return $this->render('sortie/detail.html.twig', ['sortie'=>$sortie, 'lieu'=>$lieu, 'ville'=>$ville]);
+        return $this->render('sortie/detail.html.twig', ['sortie'=>$sortie,
+                                                              'lieu'=>$lieu,
+                                                              'ville'=>$ville ]);
     }
 
 }

@@ -15,7 +15,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
                 <img class="logo" src="{{ asset('/images/porte_ouverte.png') }}" width="50px">
-                <a class="navbar-brand" href="#">Sortir.com</a>
+                <a class="navbar-brand" href="{{ path('app_home') }}">Sortir.com</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -58,6 +58,7 @@
         <p class="text-center text-muted">&copy; {{ "now"|date("Y") }} Sorteam, Inc</p>
     </footer>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {% block javascripts %}{% endblock %}
 </body>
 </html>

@@ -27,7 +27,7 @@ class RegistrationController extends AbstractController
             $user->setActif(false);
             $user->setAdministrateur(false);
             $user->setPassword(
-            $userPasswordHasherInterface->hashPassword(
+                $userPasswordHasherInterface->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
@@ -47,13 +47,95 @@ class RegistrationController extends AbstractController
     }
 
     /** @Route ("/profil/{id}", name="profilDetail", requirements={"id":"\d+"}) */
-    public function detail($id, ParticipantRepository $repository, SiteRepository  $siteRepo): Response{
+    public function detail($id, ParticipantRepository $repository): Response
+    {
         $user = $repository->find($id);
         $site = $user->getSitesNoSite();
 
-        $user->setSitesNoSite($siteRepo->find($user->getSitesNoSite()->getId()));
+        return $this->render('main/profil.html.twig', ['user' => $user, 'site' => $site]);
+    }
 
-        //dd($user);
-        return $this->render('main/profil.html.twig', ['user'=>$user, 'site'=>$site]);
+    /** @Route ("/profil", name="app_profil") */
+    public function monProfil(): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+        $user = $this->getUser();
+        $site = $user->getSitesNoSite();
+
+        return $this->render('main/profil.html.twig', ['user' => $user, 'site' => $site]);
+    }
+
+    /** @Route ("/modifierProfil", name="app_modifierProfil") */
+    public function modifierProfil(ParticipantRepository $pRepo, SiteRepository $repo,UserPasswordHasherInterface $userPasswordHasherInterface): Response
+    {
+        {
+                $user = $this->getUser();
+                $site = $user->getSitesNoSite();
+                $all = $repo->findAll();
+                $allp = $pRepo->findAll();
+                $message = null;
+                $unique = true;
+
+            if ( isset( $_POST['modifier'] )) {
+
+                if ( $_POST['pseudo'] != null) {
+                    foreach ($allp as $oui) {
+                        if ($oui->getNom() == $_POST['pseudo']) {
+                            $unique = false;
+                            echo 'oui';
+                        }
+                    }
+                    if ($unique) {
+                        $user->setPseudo($_POST['pseudo']);
+                        echo 'unpeu';
+                    } else {
+                        $message = 'Le pseudo est déjà attribué';
+                        echo 'non';
+                    }
+
+                }
+                if ( $_POST['nom'] != null) {
+                    $user->setNom($_POST['nom']);
+                }
+                if ( $_POST['prenom'] != null) {
+                    $user->setPrenom($_POST['prenom']);
+                }
+                if ( $_POST['numTel'] != null) {
+                    $user->setTelephone($_POST['numTel']);
+                }
+                if ( $_POST['email'] != null) {
+                    $user->setMail($_POST['email']);
+                }
+                if ( $_POST['site'] != null) {
+                    $noSite = $repo->findOneBy(array('nom'=>$_POST['site']));
+                    $user->setSitesNoSite($noSite);
+                }
+                if ( $_POST['newpassword'] != null) {
+                    if (password_verify( $_POST['password'], $user->getPassword())) {
+                        $user->setPassword(
+                            $userPasswordHasherInterface->hashPassword(
+                                $user,
+                                $_POST['password']
+                            )
+                        );
+                   } else {
+                        $message = 'Le mot de passe ne correspond pas';
+                    }
+                }
+                $user = $this->getUser();
+                $site = $user->getSitesNoSite();
+                $all = $repo->findAll();
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+            }
+
+
+            return $this->render('main/modifierProfil.html.twig', ['user'=>$user, 'site'=>$site, 'all'=>$all, 'error'=>$message]);
+        }
     }
 }
