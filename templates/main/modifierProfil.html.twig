@@ -11,7 +11,9 @@
         Nom : <input type="text" placeholder="{{ user.nom }}" name="nom"><br>
         Prénom : <input type="text" placeholder="{{ user.prenom }}" name="prenom"><br>
         N° de Téléphone : <input type="text" placeholder="{{ user.telephone }}" name="numTel"><br>
-        E-mail : <input type="text" placeholder="{{ user.mail }}" name="email"><br>
+        E-mail : <input type="email" placeholder="{{ user.mail }}" name="email"><br>
+        Mot de passe : <input type="password" name="password"><br>
+        Nouveau mot de passe : <input type="password" name="newpassword"><br>
 
         Site : <select name="site">
             <option selected="selected">{{ site.nom }}</option>
@@ -19,6 +21,8 @@
                 <option>{{ value.nom }}</option>
             {% endfor %}
         </select><br>
+
+        {{ error }}<br>
 
         <input type="submit" value="Modifier" name="modifier">
     </form>
