@@ -5,57 +5,19 @@
 {% block contenu %}
 
     {{ form_start(formSortie) }}
-    {{ form_row(formSortie.nom, {
-        label: "Nom de la sortie :"
-    }) }}
-    <br>
-    {{ form_row(formSortie.datedebut, {
-        label: "Date et heure de la sortie :"
-    }) }}
-    <br>
-    {{ form_row(formSortie.datecloture, {
-        label: "Date limite d'inscription :"
-    }) }}
-    <br>
-    {{ form_row(formSortie.nbinscriptionsmax, {
-        label: 'Nombre de places :'
-    }) }}
-    <br>
-    <div class="row">
-        {{ form_row(formSortie.duree, {
-            label: "Durée :"
-        }) }} minutes
-    </div>
-    <br>
-    {{ form_row(formSortie.descriptioninfos, {
-        label: 'Description et infos :'
-    }) }}
-    <br>
-    {# {{ form_row(formSortie.organisateur, { #}
-    {# label: "Organisateur de l'événement : " #}
-    {# }) }} #}
-    <label>Ville organisatrice :</label>
-    <p>Ville de {{ orga.pseudo }}</p>
-    <br>
-    <label>Ville :</label>
-    <p>TODO trouver la ville</p>
-    <br>
-    {{ form_row(formSortie.lieux_no_lieu, {
-        label: "Lieu : "
-    }) }}
-    <br>
-    <label>Rue :</label>
-    <p>TODO</p>
-    <br>
-    <label>Code Postal :</label>
-    <p>TODO</p>
-    <br>
-    <label>Latitude :</label>
-    <p>TODO</p>
-    <br>
-    <label>Longitude :</label>
-    <p>TODO</p>
-    <br>
+    <p>{{ form_row(formSortie.nom, {label: "Nom de la sortie :"}) }}</p>
+    <p>{{ form_row(formSortie.datedebut, {label: "Date et heure de la sortie :"}) }}</p>
+    <p>{{ form_row(formSortie.datecloture, {label: "Date limite d'inscription :"}) }}</p>
+    <p>{{ form_row(formSortie.nbinscriptionsmax, {label: 'Nombre de places :'}) }}</p>
+    <p>{{ form_row(formSortie.duree, {label: "Durée :"}) }} minutes</p>
+    <p>{{ form_row(formSortie.descriptioninfos, {label: 'Description et infos :'}) }}</p>
+    <p><label>Ville organisatrice :</label>{{ orga.sitesnosite.nom }}</p>
+    <p><label>Ville :</label>TODO trouver la ville</p>
+    <p>{{ form_row(formSortie.lieux_no_lieu, {label: "Lieu : "}) }}</p>
+    <p><label>Rue :</label></p>
+    <p><label>Code Postal :</label>TODO</p>
+    <p><label>Latitude :</label>TODO</p>
+    <p><label>Longitude :</label>TODO</p>
     <input type="submit" value="Enregistrer">
     <input type="submit" value="Publiez la sortie">
     <input type="submit" value="Annuler">

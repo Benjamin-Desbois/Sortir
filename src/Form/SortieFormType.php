@@ -19,7 +19,7 @@ class SortieFormType extends AbstractType
             ->add('nbinscriptionsmax')
             ->add('descriptioninfos')
 //            ->add('urlPhoto')
-//            ->add('organisateur')
+//            ->add('sites_no_site')
             ->add('lieux_no_lieu')
         ;
     }
