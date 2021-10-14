@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon Profil{% endblock %}
+
+{% block contenu %}
+    <div class="text-center">
+        <h1>Modifier mon Profil</h1>
+    </div>
+    <form action="modifierProfil" method="post">
+        Pseudo : <input type="text" placeholder="{{ user.pseudo }}" name="pseudo"><br>
+        Nom : <input type="text" placeholder="{{ user.nom }}" name="nom"><br>
+        Prénom : <input type="text" placeholder="{{ user.prenom }}" name="prenom"><br>
+        N° de Téléphone : <input type="text" placeholder="{{ user.telephone }}" name="numTel"><br>
+        E-mail : <input type="text" placeholder="{{ user.mail }}" name="email"><br>
+
+        Site : <select name="site">
+            <option selected="selected">{{ site.nom }}</option>
+            {% for value in all %}
+                <option>{{ value.nom }}</option>
+            {% endfor %}
+        </select><br>
+
+        <input type="submit" value="Modifier" name="modifier">
+    </form>
+    <a href="{{ path('app_profil') }}">Enregistrer</a>
+
+{% endblock %}

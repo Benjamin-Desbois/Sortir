@@ -11,6 +11,8 @@
     Prénom : {{ user.prenom }}<br>
     N° de Téléphone : {{ user.telephone }}<br>
     E-mail : {{ user.mail }}<br>
-    Site : {{ site.nom }}
+    Site : {{ site.nom }}<br>
+
+    <a href="{{ path('app_modifierProfil') }}">Modifier</a>
 
 {% endblock %}
