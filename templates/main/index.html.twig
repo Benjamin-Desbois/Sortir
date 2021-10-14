@@ -3,12 +3,9 @@
 {% block title %}Accueil{% endblock %}
 
 {% block contenu %}
-    <div class="text-center">
-        <h1>On est dans l'accueil! ✅</h1>
-    </div>
     <div class="text-end">
-        <label>Date du jour : {{ "now"|date("m/d/Y") }}</label><br>
-        <label>Participant : {{ user.pseudo }}</label>
+        <p>Date du jour : {{ "now"|date("m/d/Y") }}</p>
+        <p>Participant : {{ user.pseudo }}</p>
     </div>
     <h5>Filtrer les sorties</h5>
     <form class="row">
@@ -38,19 +35,19 @@
         </div>
         <div class="col-3 offset-1 ">
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked1" checked>
                 <label class="form-check-label" for="flexCheckChecked">
                     Sorties dont je suis l'organisateur/trice
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked2" checked>
                 <label class="form-check-label" for="flexCheckChecked">
                     Sorties auxquelles je suis inscrit/e
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked3" checked>
                 <label class="form-check-label" for="flexCheckChecked">
                     Sorties auxquelles je ne suis pas inscrit/e
                 </label>
@@ -66,7 +63,8 @@
             <button class="btn btn-primary" type="submit">Rechercher</button>
         </div>
     </form>
-    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <div class="row">
+    <div class="table-wrapper">
 
         <table class="table table-bordered table-striped mb-1">
             <thead>
@@ -82,18 +80,25 @@
             </tr>
             </thead>
             <tbody>
+            {% for sortie in sorties %}
             <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>{{ sortie.nom }}</td>
+                <td>{{ sortie.datedebut|date("d M Y H:i") }}</td>
+                <td>{{ sortie.datecloture|date("d M Y") }}</td>
+                <td>{{ sortie.nbinscriptionsmax }}</td>
+                <td>{{ sortie.etatsnoetat }}</td>
+                <td>Inscrit</td>
+                <td>{{ sortie.organisateur }}</td>
+                <td></td>
             </tr>
+            {% endfor %}
             </tbody>
         </table>
 
     </div>
+    </div>
     <div class="col-3 offset-1">
-        <a class="nav-link" href="{{ path('add') }}">Créer une sortie</a>
+        <a href="{{ path('add') }}" class="btn btn-lg btn-primary" role="button" id= "creation" >Créer une sortie</a>
     </div>
 
 {% endblock %}
