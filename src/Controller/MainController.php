@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\ParticipantRepository;
+use App\Repository\SiteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -44,4 +46,10 @@ class MainController extends AbstractController
     {
         return $this->render('admin/site.html.twig', []);
     }
+
+    public function detail($id, ParticipantRepository $repository): Response{
+        $user = $repository->find($id);
+        return $this->render('index.html.twig', ['user'=>$user]);
+    }
+
 }

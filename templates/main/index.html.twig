@@ -3,7 +3,11 @@
 {% block title %}Accueil{% endblock %}
 
 {% block contenu %}
-<div class="text-center">
-    <h1>On est dans l'accueil! ✅</h1>
-</div>
+    <div class="text-center">
+        <h1>On est dans l'accueil! ✅</h1>
+    </div>
+    <div class="text-right">
+        <h3>Date du jour : {{ "now"|date("m/d/Y") }}</h3>
+        <h3>Participant : {{ user.pseudo }}</h3>
+    </div>
 {% endblock %}
