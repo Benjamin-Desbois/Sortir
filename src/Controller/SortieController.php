@@ -32,7 +32,6 @@ class SortieController extends AbstractController
         $form = $this->createForm(SortieFormType::class, $sortie);
         $form->handleRequest($request);
         $orga = $this->getUser();
-        $lieu = $sortie->getLieuxNoLieu();
 
         if ($form->isSubmitted() && $form->isValid()) {
             $sortie->setEtatsNoEtat($etat->findOneBy(["id" => 1]));
@@ -40,12 +39,11 @@ class SortieController extends AbstractController
             $em->persist($sortie);
             $em->flush();
             //$this->addFlash('success', 'La sortie '.$sortie->getNom().' a bien été ajouté');
-            return $this->redirectToRoute('app_home', ['id' => $sortie->getId()]);
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('sortie/add.html.twig', ['formSortie' => $form->createView(),
-            'orga' => $orga,
-            'lieu'=>$lieu]);
+            'orga' => $orga]);
     }
 
     /** @Route ("/sortie/{id}", name="detail", requirements={"id":"\d+"}) */
