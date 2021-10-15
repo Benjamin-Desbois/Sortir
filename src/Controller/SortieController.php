@@ -10,6 +10,7 @@ use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use mysqli;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,9 +58,37 @@ class SortieController extends AbstractController
         $lieu = $sortie->getLieuxNoLieu();
         $ville = $lieu->getVillesNoVille();
 
-        return $this->render('sortie/detail.html.twig', ['sortie'=>$sortie,
-                                                              'lieu'=>$lieu,
-                                                              'ville'=>$ville ]);
+        return $this->render('sortie/detail.html.twig', ['sortie' => $sortie,
+            'lieu' => $lieu,
+            'ville' => $ville]);
     }
 
+    /** @Route ("/deleteSortie/{id}", name="app_deleteSortie", requirements={"id":"\d+"}) */
+    public function deleteSortie($id) : Response {
+        $servername = "localhost";
+        $username = "root";
+        $dbname = "sortie";
+        $password ='';
+
+// Create connection
+
+        $conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+// sql to delete a record
+        $sql = "DELETE FROM sortie WHERE id=$id";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "Record deleted successfully";
+        } else {
+            echo "Error deleting record: " . $conn->error;
+        }
+
+        $conn->close();
+
+        return $this->redirectToRoute('app_home');
+    }
 }

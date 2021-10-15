@@ -66,34 +66,34 @@
     <div class="row">
         <div class="table-wrapper">
 
-            <table class="table table-bordered table-striped mb-1">
-                <thead>
-                <tr>
-                    <th scope="col-2">Nom de la sortie</th>
-                    <th scope="col-2">Date de la sortie</th>
-                    <th scope="col-2">Clôture</th>
-                    <th scope="col-2">inscrits/place</th>
-                    <th scope="col-1">Etat</th>
-                    <th scope="col-1">Inscrit</th>
-                    <th scope="col-2">Organisateur</th>
-                    <th scope="col-2">Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for sortie in sorties %}
-                    <tr>
-                        <td>{{ sortie.nom }}</td>
-                        <td>{{ sortie.datedebut|date("d M Y H:i") }}</td>
-                        <td>{{ sortie.datecloture|date("d M Y") }}</td>
-                        <td>{{ sortie.nbinscriptionsmax }}</td>
-                        <td>{{ sortie.etatsnoetat }}</td>
-                        <td>Inscrit</td>
-                        <td>{{ sortie.organisateur }}</td>
-                        <td></td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+        <table class="table table-bordered table-striped mb-1">
+            <thead>
+            <tr>
+                <th scope="col-2">Nom de la sortie</th>
+                <th scope="col-2">Date de la sortie</th>
+                <th scope="col-2">Clôture</th>
+                <th scope="col-2">inscrits/place</th>
+                <th scope="col-1">Etat</th>
+                <th scope="col-1">Inscrit</th>
+                <th scope="col-2">Organisateur</th>
+                <th scope="col-2">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for sortie in sorties %}
+            <tr>
+                <td>{{ sortie.nom }}</td>
+                <td>{{ sortie.datedebut|date("d M Y H:i") }}</td>
+                <td>{{ sortie.datecloture|date("d M Y") }}</td>
+                <td>{{ sortie.nbinscriptionsmax }}</td>
+                <td>{{ sortie.etatsnoetat }}</td>
+                <td>Inscrit</td>
+                <td>{{ sortie.organisateur }}</td>
+               {# <td><a href="{{ path('app_deleteSortie') }}">Supprimer</a> </td>#}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
         </div>
         <script src="{{ asset('/JavaScript/home.js') }}">
