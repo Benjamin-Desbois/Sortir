@@ -8,6 +8,7 @@ use App\Form\SortieFormType;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,15 +27,17 @@ class SortieController extends AbstractController
 //    }
 
     /** @Route("/sortie/add", name="add") */
-    public function add(Request $request, EntityManagerInterface $em, EtatRepository $etat): Response
+    public function add(Request $request, EntityManagerInterface $em, EtatRepository $etatRepo, VilleRepository $villeRepo): Response
     {
         $sortie = new Sortie();
         $form = $this->createForm(SortieFormType::class, $sortie);
         $form->handleRequest($request);
         $orga = $this->getUser();
 
+        $villes = $villeRepo->findALl();
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $sortie->setEtatsNoEtat($etat->findOneBy(["id" => 1]));
+            $sortie->setEtatsNoEtat($etatRepo->findOneBy(["id" => 1]));
             $sortie->setOrganisateur($this->getUser());
             $em->persist($sortie);
             $em->flush();
@@ -43,7 +46,8 @@ class SortieController extends AbstractController
         }
 
         return $this->render('sortie/add.html.twig', ['formSortie' => $form->createView(),
-            'orga' => $orga]);
+            'orga'=>$orga,
+            'villes'=>$villes]);
     }
 
     /** @Route ("/sortie/{id}", name="detail", requirements={"id":"\d+"}) */

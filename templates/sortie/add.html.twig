@@ -12,10 +12,15 @@
     <p>{{ form_row(formSortie.duree, {label: "Durée :"}) }} minutes</p>
     <p>{{ form_row(formSortie.descriptioninfos, {label: 'Description et infos :'}) }}</p>
     <p><label>Ville organisatrice :</label>{{ orga.sitesnosite.nom }}</p>
-    <p>VILLE</p>
+    <div><label>Ville :</label>
+        <select name="villes" id="villes">
+            {% for ville in villes %}
+            <option value="{{ ville.codepostal }}">{{ ville.nomville }}</option>
+            {% endfor %}
+        </select></div>
     <p>{{ form_row(formSortie.lieux_no_lieu, {label: "Lieu : "}) }}</p>
     <p><label>Rue :</label></p>
-    <p><label>Code Postal :</label>TODO</p>
+    <div><label>Code Postal :</label><p id="codePostal"></p></div>
     <p><label>Latitude :</label>TODO</p>
     <p><label>Longitude :</label>TODO</p>
     <input type="submit" value="Enregistrer">
@@ -28,13 +33,13 @@
 {% block javascripts %}
 <script>
     $(document).ready(function(){
-        $("#ville").change(function(){
-            var id = $(this).val();
-            $.get("/get-code-p/"+id, function(data, status){
-                //alert("Data: " + data + "\nStatus: " + status);
-                var res=JSON.parse(data);
-                $("#codep").val(res.code);
-            });
+        $("#villes").change(function(){
+            let cp = $(this).val();
+            // $.get("/get-code-p/"+id, function(data, status){
+            //     //alert("Data: " + data + "\nStatus: " + status);
+            //     var res=JSON.parse(data);
+            // });
+            $("#codePostal").html(cp);
         });
     });
 </script>
