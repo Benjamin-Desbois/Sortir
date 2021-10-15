@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Sortie;
 use App\Repository\ParticipantRepository;
+use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,15 +15,16 @@ class MainController extends AbstractController
     /**
      * @Route("/home", name="app_home")
      */
-    public function home(SortieRepository $repository): Response
+    public function home(SortieRepository $sortieRepo, SiteRepository $siteRepo): Response
 
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         } else {
             $user = $this->getUser();
-            $sorties = $repository->findALl();
-            return $this->render('main/index.html.twig', ['user'=>$user, 'sorties'=>$sorties]);
+            $sorties = $sortieRepo->findALl();
+            $sites = $siteRepo->findAll();
+            return $this->render('main/index.html.twig', ['user'=>$user, 'sorties'=>$sorties, 'sites'=>$sites]);
         }
     }
 
