@@ -13,6 +13,8 @@
     E-mail : {{ user.mail }}<br>
     Site : {{ site.nom }}<br>
 
+    {% if pseudo == user.pseudo %}
     <a href="{{ path('app_modifierProfil') }}">Modifier</a>
+    {% endif %}
 
 {% endblock %}

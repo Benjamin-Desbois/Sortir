@@ -51,8 +51,9 @@ class RegistrationController extends AbstractController
     {
         $user = $repository->find($id);
         $site = $user->getSitesNoSite();
+        $pseudo = $this->getUser()->getUserIdentifier();
 
-        return $this->render('main/profil.html.twig', ['user' => $user, 'site' => $site]);
+        return $this->render('main/profil.html.twig', ['user' => $user, 'site' => $site, 'pseudo' => $pseudo]);
     }
 
     /** @Route ("/profil", name="app_profil") */
@@ -63,8 +64,9 @@ class RegistrationController extends AbstractController
         }
         $user = $this->getUser();
         $site = $user->getSitesNoSite();
+        $pseudo = $this->getUser()->getUserIdentifier();
 
-        return $this->render('main/profil.html.twig', ['user' => $user, 'site' => $site]);
+        return $this->render('main/profil.html.twig', ['user' => $user, 'site' => $site, 'pseudo' => $pseudo]);
     }
 
     /** @Route ("/modifierProfil", name="app_modifierProfil") */
@@ -84,15 +86,12 @@ class RegistrationController extends AbstractController
                     foreach ($allp as $oui) {
                         if ($oui->getNom() == $_POST['pseudo']) {
                             $unique = false;
-                            echo 'oui';
                         }
                     }
                     if ($unique) {
                         $user->setPseudo($_POST['pseudo']);
-                        echo 'unpeu';
                     } else {
                         $message = 'Le pseudo est déjà attribué';
-                        echo 'non';
                     }
 
                 }
