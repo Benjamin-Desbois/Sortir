@@ -25,7 +25,7 @@
     <p><label>Longitude :</label>TODO</p>
     <input type="submit" value="Enregistrer">
     <input type="submit" value="Publiez la sortie">
-    <input type="submit" value="Annuler">
+    <a href="{{ path('app_home') }}"><button type="button">Annuler</button></a>
     {{ form_end(formSortie) }}
 
 {% endblock %}
