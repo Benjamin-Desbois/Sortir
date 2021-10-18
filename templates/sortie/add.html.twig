@@ -2,6 +2,15 @@
 
 {% block title %}Creation de sortie !{% endblock %}
 
+{% form_theme formSortie 'bootstrap_5_layout.html.twig' %}
+
+{% block integer_widget %}
+    <div class="integer_widget">
+        {% set type = type|default('number') %}
+
+    </div>
+{% endblock %}
+
 {% block contenu %}
 
     {{ form_start(formSortie) }}

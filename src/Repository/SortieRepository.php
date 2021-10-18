@@ -6,6 +6,7 @@ use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
+use mysqli;
 
 /**
  * @method Sortie|null find($id, $lockMode = null, $lockVersion = null)
@@ -28,6 +29,32 @@ class SortieRepository extends ServiceEntityRepository
         $qb->setFirstResult($numPage*$nbSortie);
         $query = $qb->getQuery();
         return new Paginator($query);
+    }
+
+    public function deleteSortieDQL($id) {
+        $servername = "localhost";
+        $username = "root";
+        $dbname = "sortie";
+        $password ='';
+
+// Create connection
+
+        $conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+
+// sql to delete a record
+        $sql = "DELETE FROM sortie WHERE id=$id";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "Record deleted successfully";
+        } else {
+            echo "Error deleting record: " . $conn->error;
+        }
+
+        $conn->close();
     }
 
     // /**
