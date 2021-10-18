@@ -4,7 +4,7 @@
 
 {% block contenu %}
     <div class="text-end">
-        <p>Date du jour : {{ "now"|date("m/d/Y") }}</p>
+        <p>Date du jour : {{ "now"|date("d/m/Y") }}</p>
         <p>Participant : {{ user.pseudo }}</p>
     </div>
     <h5>Filtrer les sorties</h5>
@@ -15,14 +15,15 @@
                 <select class="form-select" name="sites" id="sites">
                     <option>Choissiez le site ...</option>
                     {% for site in sites %}
-                    <option value="{{ site.id }}">{{ site.nom}} </option>
+                        <option value="{{ site.id }}">{{ site.nom }} </option>
                     {% endfor %}
                 </select>
             </div>
             <div>
                 <div class="input-group mb-3">
                     <label class="input-group-text">Le nom de la sortie contient : </label>
-                    <input type="text" class="form-control" id="inputChercher" name="chercher" aria-label="Sizing example input"
+                    <input type="text" class="form-control" id="inputChercher" name="chercher"
+                           aria-label="Sizing example input"
                            aria-describedby="inputGroup-sizing-default">
                 </div>
             </div>
@@ -85,11 +86,13 @@
                         <td>{{ sortie.nom }}</td>
                         <td>{{ sortie.datedebut|date("d M Y H:i") }}</td>
                         <td>{{ sortie.datecloture|date("d M Y") }}</td>
-                        <td>{{ sortie.nbinscriptionsmax }}</td>
+                        <td>{{ inscription.id }}{{ sortie.nbinscriptionsmax }}</td>
                         <td>{{ sortie.etatsnoetat }}</td>
                         <td>Inscrit</td>
-                        <td>{{ sortie.organisateur }}</td>
-                        <td></td>
+                        <td>{{ sortie.organisateur.pseudo }}</td>
+                        <td>{% if sortie.organisateur.pseudo!=user.pseudo %}
+                                <button type="button" class="btn btn-success">S'inscrire</button>
+                            {% endif %}</td>
                     </tr>
                 {% endfor %}
                 </tbody>
