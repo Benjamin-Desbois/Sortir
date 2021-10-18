@@ -11,6 +11,7 @@ use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -33,7 +34,6 @@ class SortieController extends AbstractController
         $form = $this->createForm(SortieFormType::class, $sortie);
         $form->handleRequest($request);
         $orga = $this->getUser();
-
         $villes = $villeRepo->findALl();
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,9 +51,9 @@ class SortieController extends AbstractController
     }
 
     /** @Route ("/sortie/{id}", name="detail", requirements={"id":"\d+"}) */
-    public function detail($id, SortieRepository $repository, LieuRepository $lieuRepo): Response
+    public function detail($id, SortieRepository $sortieRepo, LieuRepository $lieuRepo): Response
     {
-        $sortie = $repository->find($id);
+        $sortie = $sortieRepo->find($id);
         $lieu = $sortie->getLieuxNoLieu();
         $ville = $lieu->getVillesNoVille();
 
@@ -62,4 +62,33 @@ class SortieController extends AbstractController
                                                               'ville'=>$ville ]);
     }
 
+    /**
+     * @Route("/getLieuxByVille/{idville}", name="getLieuxByVille")
+     */
+    public function getLieuxByVille(Request $request, LieuRepository $lieuRepo, VilleRepository $villeRepo, $idville=1): Response
+    {
+        $lieux = $lieuRepo->findBy(['villes_no_ville'=>$idville]);
+        $ville = $villeRepo->findOneBy(['id'=>$idville]);
+        $listeLieux = array();
+
+        foreach ($lieux as $lieu) {
+            $listeLieux[] = array(
+                'id'=>$lieu->getId(),
+                'nom_lieu'=>$lieu->getNomLieu(),
+                'rue'=>$lieu->getRue(),
+                'latitude'=>$lieu->getLatitude(),
+                'longitude'=>$lieu->getLongitude(),
+                'ville'=>$lieu->getVillesNoVille()
+            );
+        }
+        return new JsonResponse($listeLieux);
+    }
+//IDEE FAIRE JSON POUR RECUP VILLE (CP) ET JSON POUR LIEU
+    /**
+     * @Route("/sortie/annuler", name="annuler_sortie")
+     */
+    public function profil(): Response
+    {
+        return $this->render('sortie/annuler.html.twig', []);
+    }
 }

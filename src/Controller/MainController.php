@@ -29,8 +29,6 @@ class MainController extends AbstractController
     /**
      * @Route("/profil", name="app_profil")
      */
-
-    
     public function profil(): Response
     {
         return $this->render('main/profil.html.twig', []);

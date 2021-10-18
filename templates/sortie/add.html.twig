@@ -13,14 +13,17 @@
     <p>{{ form_row(formSortie.descriptioninfos, {label: 'Description et infos :'}) }}</p>
     <p><label>Ville organisatrice :</label>{{ orga.sitesnosite.nom }}</p>
     <div><label>Ville :</label>
-        <select name="villes" id="villes">
+        <select id="villes">
             {% for ville in villes %}
-            <option value="{{ ville.codepostal }}">{{ ville.nomville }}</option>
+            <option value="{{ ville.id }}">{{ ville.nomville }}</option>
             {% endfor %}
         </select></div>
     <p>{{ form_row(formSortie.lieux_no_lieu, {label: "Lieu : "}) }}</p>
+    <div><label>LieuJson :</label>
+        <select id="lieux"></select>
+    </div>
     <p><label>Rue :</label></p>
-    <div><label>Code Postal :</label><p id="codePostal"></p></div>
+    <p id="codePostal"><label>Code Postal :</label></p>
     <p><label>Latitude :</label>TODO</p>
     <p><label>Longitude :</label>TODO</p>
     <input type="submit" value="Enregistrer">
@@ -34,12 +37,19 @@
 <script>
     $(document).ready(function(){
         $("#villes").change(function(){
-            let cp = $(this).val();
-            // $.get("/get-code-p/"+id, function(data, status){
-            //     //alert("Data: " + data + "\nStatus: " + status);
-            //     var res=JSON.parse(data);
-            // });
-            $("#codePostal").html(cp);
+            let id = $(this).val();
+            let lieux = document.getElementById("lieux");
+
+            fetch("/getLieuxByVille/"+id)
+                .then(reponse => reponse.json())
+                .then(data => {
+                    lieux.innerHTML = "";
+                    for (let lieu of data){
+                        lieux.innerHTML += "<option value='"+lieu.id+"'>"+lieu.nom_lieu+"</option>";
+                    }
+                    document.getElementById("codePostal").innerText = "Code Postal : 00000";
+                })
+                .catch(erreur => console.log(erreur));
         });
     });
 </script>
