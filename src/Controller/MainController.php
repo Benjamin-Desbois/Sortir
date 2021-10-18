@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Sortie;
 use App\Repository\ParticipantRepository;
+use App\Repository\ParticipantSortieRepository;
 use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,11 +23,10 @@ class MainController extends AbstractController
             return $this->redirectToRoute('app_login');
         } else {
             $user = $this->getUser();
-            $orga = $this->getUser();
             $sorties = $sortieRepo->findALl();
             $sites = $siteRepo->findAll();
             $participant = $participantRepo ->findALl();
-            return $this->render('main/index.html.twig', ['user'=>$user, 'sorties'=>$sorties, 'sites'=>$sites, 'participant'=>$participant,'orga'=>$orga]);
+            return $this->render('main/index.html.twig', ['user'=>$user, 'sorties'=>$sorties, 'sites'=>$sites, 'participant'=>$participant]);
         }
     }
 
@@ -54,6 +54,16 @@ class MainController extends AbstractController
     public function site(): Response
     {
         return $this->render('admin/site.html.twig', []);
+    }
+
+    /** @Route ("/ajoutPartSort/{id}", name="app_ajoutPartSort", requirements={"id":"\d+"}) */
+    public function addPartSort(SortieRepository $sortieRepo, ParticipantSortieRepository $inscriptionRepo):Response{
+
+        $user = $this->getUser();
+        $sortie = $sortieRepo->findALl();
+        $inscriptionRepo ->addPartSortie($user,$sortie);
+
+        return $this->redirectToRoute('app_home', ['user'=>$user,'sortie'=>$sortie]);
     }
 
 

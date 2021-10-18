@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\ParticipantSortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use mysqli;
 
 /**
  * @method ParticipantSortie|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,28 @@ class ParticipantSortieRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ParticipantSortie::class);
+    }
+
+    public function addPartSortie($user,$sorties){
+        $servername="localhost";
+        $username = "root";
+        $dbname = "sortie";
+        $password = '';
+
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        if ($conn->connect_error){
+            die("Connection failed: " . $conn->connect_error);
+        }
+        $sql = "INSERT INTO participant_sortie VALUES participant.id,sortie.id";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "Record deleted successfully";
+        } else {
+            echo "Error deleting record: " . $conn->error;
+        }
+
+        $conn->close();
+
     }
 
     // /**
