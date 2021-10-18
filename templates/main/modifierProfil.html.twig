@@ -3,29 +3,58 @@
 {% block title %}Modifier mon Profil{% endblock %}
 
 {% block contenu %}
-    <div class="text-center">
-        <h1>Modifier mon Profil</h1>
+    <div class="container">
+        <div class="text-center">
+            <h1>Modifier mon Profil</h1>
+        </div>
+        <form action="modifierProfil" method="post">
+            <div class="row">
+                <div class="col-4">
+                <p><label for="pseudo">Pseudo : </label> <input class="form-control" type="text" placeholder="{{ user.pseudo }}" name="pseudo"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <p><label for="nom">Nom : </label> <input class="form-control" type="text" placeholder="{{ user.nom }}" name="nom"></p>
+                </div>
+                <div class="col-4 offset-2">
+                    <p><label for="prenom">Prénom : </label> <input class="form-control" type="text" placeholder="{{ user.prenom }}" name="prenom"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <p><label for="numTel">N° de Téléphone : </label> <input class="form-control" type="text" placeholder="{{ user.telephone }}" name="numTel"></p>
+                </div>
+                <div class="col-4 offset-2">
+                    <p><label for="email">E-mail : </label> <input class="form-control" type="email" placeholder="{{ user.mail }}" name="email"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <p><label for="password" >Mot de passe : </label> <input class="form-control" type="password" name="password"></p>
+                </div>
+                <div class="col-4 offset-2">
+                    <p><label for="newpassword">Nouveau mot de passe : </label> <input class="form-control" type="password" name="newpassword"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                <p><label for="site">Site : </label> <select class="form-control" name="site">
+                        <option selected="selected">{{ site.nom }}</option>
+                        {% for value in all %}
+                            <option>{{ value.nom }}</option>
+                        {% endfor %}
+                    </select></p>
+                </div>
+            </div>
+
+            {{ error }}
+
+            <div class="row">
+                <button type="submit" class="btn btn-primary" name="modifier">Modifier</button>
+                <button class="btn btn-primary"><a id="link" href="{{ path('app_profil') }}">Enregistrer</a></button>
+            </div>
+        </form>
+
     </div>
-    <form action="modifierProfil" method="post">
-        Pseudo : <input type="text" placeholder="{{ user.pseudo }}" name="pseudo"><br>
-        Nom : <input type="text" placeholder="{{ user.nom }}" name="nom"><br>
-        Prénom : <input type="text" placeholder="{{ user.prenom }}" name="prenom"><br>
-        N° de Téléphone : <input type="text" placeholder="{{ user.telephone }}" name="numTel"><br>
-        E-mail : <input type="email" placeholder="{{ user.mail }}" name="email"><br>
-        Mot de passe : <input type="password" name="password"><br>
-        Nouveau mot de passe : <input type="password" name="newpassword"><br>
-
-        Site : <select name="site">
-            <option selected="selected">{{ site.nom }}</option>
-            {% for value in all %}
-                <option>{{ value.nom }}</option>
-            {% endfor %}
-        </select><br>
-
-        {{ error }}<br>
-
-        <input type="submit" value="Modifier" name="modifier">
-    </form>
-    <a href="{{ path('app_profil') }}">Enregistrer</a>
-
 {% endblock %}

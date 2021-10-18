@@ -29,3 +29,8 @@
     padding-top: 30px;
     padding-left: 55px;
 }
+
+#link{
+    text-decoration: none;
+    color: white;
+}
