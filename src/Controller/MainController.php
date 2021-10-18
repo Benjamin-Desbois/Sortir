@@ -15,16 +15,18 @@ class MainController extends AbstractController
     /**
      * @Route("/home", name="app_home")
      */
-    public function home(SortieRepository $sortieRepo, SiteRepository $siteRepo): Response
+    public function home(SortieRepository $sortieRepo, SiteRepository $siteRepo, ParticipantRepository $participantRepo): Response
 
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         } else {
             $user = $this->getUser();
+            $orga = $this->getUser();
             $sorties = $sortieRepo->findALl();
             $sites = $siteRepo->findAll();
-            return $this->render('main/index.html.twig', ['user'=>$user, 'sorties'=>$sorties, 'sites'=>$sites]);
+            $participant = $participantRepo ->findALl();
+            return $this->render('main/index.html.twig', ['user'=>$user, 'sorties'=>$sorties, 'sites'=>$sites, 'participant'=>$participant,'orga'=>$orga]);
         }
     }
 

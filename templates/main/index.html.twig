@@ -4,7 +4,7 @@
 
 {% block contenu %}
     <div class="text-end">
-        <p>Date du jour : {{ "now"|date("m/d/Y") }}</p>
+        <p>Date du jour : {{ "now"|date("d/m/Y") }}</p>
         <p>Participant : {{ user.pseudo }}</p>
     </div>
     <h5>Filtrer les sorties</h5>
@@ -94,7 +94,11 @@
                             {% if (sortie.organisateur.pseudo == user.pseudo) %}
                                 <a href="{{ path('app_deleteSortie', {'id': sortie.id}) }}">Supprimer</a>
                             {% endif %}
+                            {% if sortie.organisateur.pseudo!=user.pseudo %}
+                                <button type="button" class="btn btn-success">S'inscrire</button>
+                            {% endif %}
                         </td>
+
                     </tr>
                 {% endfor %}
                 </tbody>
