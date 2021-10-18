@@ -89,7 +89,7 @@
                         <td>{{ sortie.nbinscriptionsmax }}</td>
                         <td>{{ sortie.etatsnoetat }}</td>
                         <td>Inscrit</td>
-                        <td>{{ sortie.organisateur.pseudo }}</td>
+                        <td><a href="{{ path('app_profilDetail', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td>
                         <td>
                             {% if (sortie.organisateur.pseudo == user.pseudo) %}
                                 <a href="{{ path('app_deleteSortie', {'id': sortie.id}) }}">Supprimer</a>

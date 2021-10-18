@@ -46,7 +46,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    /** @Route ("/profil/{id}", name="profilDetail", requirements={"id":"\d+"}) */
+    /** @Route ("/profil/{id}", name="app_profilDetail", requirements={"id":"\d+"}) */
     public function detail($id, ParticipantRepository $repository): Response
     {
         $user = $repository->find($id);
