@@ -4,7 +4,11 @@
 
 {% block contenu %}
     <div class="text-center">
-        <h1>Mon Profil</h1>
+        {% if pseudo == user.pseudo %}
+            <h1>Mon Profil</h1>
+        {% else %}
+            <h1>Profil de {{ user.pseudo }}</h1>
+        {% endif %}
     </div>
     Pseudo : {{ user.pseudo }}<br>
     Nom : {{ user.nom }}<br>
