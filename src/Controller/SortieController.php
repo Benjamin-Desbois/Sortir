@@ -51,7 +51,7 @@ class SortieController extends AbstractController
     }
 
     /** @Route ("/sortie/{id}", name="detail", requirements={"id":"\d+"}) */
-    public function detail($id, SortieRepository $sortieRepo, LieuRepository $lieuRepo): Response
+    public function detail($id, SortieRepository $sortieRepo): Response
     {
         $sortie = $sortieRepo->find($id);
         $lieu = $sortie->getLieuxNoLieu();
@@ -74,7 +74,7 @@ class SortieController extends AbstractController
     /**
      * @Route("/getLieuxByVille/{idville}", name="getLieuxByVille")
      */
-    public function getLieuxByVille(Request $request, LieuRepository $lieuRepo, VilleRepository $villeRepo, $idville=1): Response
+    public function getLieuxByVille(LieuRepository $lieuRepo, VilleRepository $villeRepo, $idville=1): Response
     {
         $lieux = $lieuRepo->findBy(['villes_no_ville'=>$idville]);
         $listeLieux = array();
@@ -95,7 +95,7 @@ class SortieController extends AbstractController
     /**
      * @Route("/getCodePostal/{idville}", name="getCodePostal")
      */
-    public function getCodePostal(Request $request, VilleRepository $villeRepo, $idville=1): Response
+    public function getCodePostal(VilleRepository $villeRepo, $idville=1): Response
     {
         $ville = $villeRepo->findOneBy(['id'=>$idville]);
             $villeSelect[] = array(
@@ -109,7 +109,7 @@ class SortieController extends AbstractController
     /**
      * @Route("/getLieu/{idlieu}", name="getLieu")
      */
-    public function getLieu(Request $request, LieuRepository $lieuRepo, $idlieu=1): Response
+    public function getLieu(LieuRepository $lieuRepo, $idlieu=1): Response
     {
         $lieu = $lieuRepo->findOneBy(['id'=>$idlieu]);
             $lieuSelect[] = array(
