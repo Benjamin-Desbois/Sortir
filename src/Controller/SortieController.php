@@ -95,9 +95,17 @@ class SortieController extends AbstractController
     }
 
     /**
+     * @Route("/sortie/modifier", name="modifier_sortie")
+     */
+    public function modifierSortie(): Response
+    {
+        return $this->render('sortie/modifierSortie.html.twig', []);
+    }
+
+    /**
      * @Route("/sortie/annuler", name="annuler_sortie")
      */
-    public function profil(): Response
+    public function annulerSortie(): Response
     {
         return $this->render('sortie/annuler.html.twig', []);
     }
