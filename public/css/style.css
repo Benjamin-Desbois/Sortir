@@ -24,8 +24,29 @@
     margin-top: 10px;
 }
 
+#title{
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
 
 #link{
     text-decoration: none;
     color: white;
+}
+
+#image{
+    border-radius: 500px;
+}
+
+#profil{
+    background-color: white;
+    border-radius: 15px;
+}
+
+#bigText{
+    font-size: 120%;
+}
+
+textarea{
+    resize: none;
 }

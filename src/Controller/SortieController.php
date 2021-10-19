@@ -46,8 +46,8 @@ class SortieController extends AbstractController
         }
 
         return $this->render('sortie/add.html.twig', ['formSortie' => $form->createView(),
-            'orga'=>$orga,
-            'villes'=>$villes]);
+            'orga' => $orga,
+            'villes' => $villes]);
     }
 
     /** @Route ("/sortie/{id}", name="detail", requirements={"id":"\d+"}) */
@@ -62,32 +62,23 @@ class SortieController extends AbstractController
             'ville' => $ville]);
     }
 
-    /** @Route ("/deleteSortie/{id}", name="app_deleteSortie", requirements={"id":"\d+"}) */
-    public function deleteSortie($id, SortieRepository $repo) : Response
-    {
-
-        $repo->deleteSortieDQL($id);
-
-        return $this->redirectToRoute('app_home');
-    }
-
     /**
      * @Route("/getLieuxByVille/{idville}", name="getLieuxByVille")
      */
-    public function getLieuxByVille(Request $request, LieuRepository $lieuRepo, VilleRepository $villeRepo, $idville=1): Response
+    public function getLieuxByVille(Request $request, LieuRepository $lieuRepo, VilleRepository $villeRepo, $idville = 1): Response
     {
-        $lieux = $lieuRepo->findBy(['villes_no_ville'=>$idville]);
-        $ville = $villeRepo->findOneBy(['id'=>$idville]);
+        $lieux = $lieuRepo->findBy(['villes_no_ville' => $idville]);
+        $ville = $villeRepo->findOneBy(['id' => $idville]);
         $listeLieux = array();
 
         foreach ($lieux as $lieu) {
             $listeLieux[] = array(
-                'id'=>$lieu->getId(),
-                'nom_lieu'=>$lieu->getNomLieu(),
-                'rue'=>$lieu->getRue(),
-                'latitude'=>$lieu->getLatitude(),
-                'longitude'=>$lieu->getLongitude(),
-                'ville'=>$lieu->getVillesNoVille()
+                'id' => $lieu->getId(),
+                'nom_lieu' => $lieu->getNomLieu(),
+                'rue' => $lieu->getRue(),
+                'latitude' => $lieu->getLatitude(),
+                'longitude' => $lieu->getLongitude(),
+                'ville' => $lieu->getVillesNoVille()
             );
         }
         return new JsonResponse($listeLieux);
@@ -103,10 +94,17 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/sortie/annuler", name="annuler_sortie")
+     * @Route("/sortie/annuler/{id}", name="annuler_sortie", requirements={"id":"\d+"})
      */
-    public function annulerSortie(): Response
+    public function annulerSortie($id, SortieRepository $sortieRepo): Response
     {
-        return $this->render('sortie/annuler.html.twig', []);
+        $sortie = $sortieRepo->findOneBy(['id' => $id]);
+
+        if (isset( $_POST['modifier'])) {
+            $sortieRepo->deleteSortieDQL($id, $_POST['description']);
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('sortie/annuler.html.twig', ['sortie' => $sortie]);
     }
 }

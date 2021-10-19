@@ -70,9 +70,9 @@ class RegistrationController extends AbstractController
     }
 
     /** @Route ("/modifierProfil", name="app_modifierProfil") */
-    public function modifierProfil(ParticipantRepository $pRepo, SiteRepository $repo,UserPasswordHasherInterface $userPasswordHasherInterface): Response
-    {
-        {
+    public function modifierProfil(ParticipantRepository $pRepo, SiteRepository $repo,UserPasswordHasherInterface $userPasswordHasherInterface, Request $request): Response {
+
+
                 $user = $this->getUser();
                 $site = $user->getSitesNoSite();
                 $all = $repo->findAll();
@@ -80,8 +80,10 @@ class RegistrationController extends AbstractController
                 $message = null;
                 $unique = true;
 
+
             if ( isset( $_POST['modifier'] )) {
 
+                $request->request->get('pseudo');
                 if ( $_POST['pseudo'] != null) {
                     foreach ($allp as $oui) {
                         if ($oui->getNom() == $_POST['pseudo']) {
@@ -123,9 +125,6 @@ class RegistrationController extends AbstractController
                         $message = 'Le mot de passe ne correspond pas';
                     }
                 }
-                $user = $this->getUser();
-                $site = $user->getSitesNoSite();
-                $all = $repo->findAll();
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
@@ -136,5 +135,5 @@ class RegistrationController extends AbstractController
 
             return $this->render('main/modifierProfil.html.twig', ['user'=>$user, 'site'=>$site, 'all'=>$all, 'error'=>$message]);
         }
-    }
+
 }

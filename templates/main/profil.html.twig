@@ -3,22 +3,95 @@
 {% block title %}Profil{% endblock %}
 
 {% block contenu %}
-    <div class="text-center">
+    <div class="row text-center">
         {% if pseudo == user.pseudo %}
-            <h1>Mon Profil</h1>
+            <h1 id="title">Mon Profil</h1>
         {% else %}
             <h1>Profil de {{ user.pseudo }}</h1>
         {% endif %}
     </div>
-    Pseudo : {{ user.pseudo }}<br>
-    Nom : {{ user.nom }}<br>
-    Prénom : {{ user.prenom }}<br>
-    N° de Téléphone : {{ user.telephone }}<br>
-    E-mail : {{ user.mail }}<br>
-    Site : {{ site.nom }}<br>
 
-    {% if pseudo == user.pseudo %}
-    <a href="{{ path('app_modifierProfil') }}">Modifier</a>
-    {% endif %}
+    <div class="container emp-profile">
+        <form method="post">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-img">
+                        <img src="https://www.sobr-djamil.com/wp-content/plugins/give/assets/dist/images/anonymous-user.svg" alt="" id="image"/>
+
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="profile-head">
+                        <h5>
+                            {{ user.pseudo }}
+                        </h5>
+                        <h6>
+                            Utilisateur
+                        </h6>
+
+                    </div>
+                </div>
+                {% if pseudo == user.pseudo %}
+                <div class="col-md-2">
+                    <button class="btn btn-primary"><a id="link" href="{{ path('app_modifierProfil') }}">Modifier</a></button>
+                </div>
+                {% endif %}
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-work">
+                        <p id="bigText">Profil</p>
+
+                    </div>
+                </div>
+                <div class="col-md-8" id="profil">
+                    <div class="tab-content profile-tab" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label id="bigText">Pseudo</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <span id="bigText" >{{ user.pseudo }}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label id="bigText">Nom</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p id="bigText">{{ user.prenom }} {{ user.nom }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label id="bigText">Email</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p id="bigText">{{ user.mail }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label id="bigText">Téléphone</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p id="bigText">{{ user.telephone }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label id="bigText">Site</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p id="bigText">{{ site.nom }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 
 {% endblock %}

@@ -4,6 +4,38 @@
 
 {% block contenu %}
     <div class="text-center">
-        <h1>Annuler une sortie! ✅</h1>
+        <h1 id="title">Annulation de la sortie</h1>
+    </div>
+    <div class="row">
+        <div class="col-2 offset-4">
+            <label for="nom">Nom de la sortie :</label>
+        </div>
+        <div class="col">
+            <p name="nom">{{ sortie.nom }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2 offset-4">
+            <label for="nom">Date de la sortie : </label>
+        </div>
+        <div class="col">
+            <p name="nom">{{ sortie.datedebut|date("d M Y H:i") }}</p>
+        </div>
+    </div>
+    <form class="row text-center" method="post">
+        <div>
+            <label for="description" id="bigText">Raisons de l'annulation : </label>
+        </div>
+        <div>
+            <textarea name="description" rows="10" cols="63"></textarea>
+        </div>
+        <div>
+            <button type="submit" name="modifier" class="btn btn-danger">Annuler</button>
+        </div>
+    </form>
+    <div class="row text-center">
+        <div class="col-2 offset-5">
+            <button type="submit" class="btn btn-primary"><a id="link" href="{{ path('app_home') }}">Retour à l'accueil</a></button>
+        </div>
     </div>
 {% endblock %}

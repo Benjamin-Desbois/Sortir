@@ -95,7 +95,7 @@
                         </td>
                         <td>
                             {% if (sortie.organisateur.pseudo == user.pseudo) %}
-                                <button type="button" class="btn btn-danger"><a id="link" href="{{ path('app_deleteSortie', {'id': sortie.id}) }}">Supprimer</a></button>
+                                <button type="button" class="btn btn-danger"><a id="link" href="{{ path('annuler_sortie', {'id': sortie.id}) }}">Supprimer</a></button>
                             {% endif %}
                             {% if sortie.organisateur.pseudo!=user.pseudo %}
                                 <button type="button" class="btn btn-success">S'inscrire</button>

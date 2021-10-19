@@ -31,7 +31,8 @@ class SortieRepository extends ServiceEntityRepository
         return new Paginator($query);
     }
 
-    public function deleteSortieDQL($id) {
+    public function deleteSortieDQL($id, $description) {
+
         $servername = "localhost";
         $username = "root";
         $dbname = "sortie";
@@ -44,14 +45,12 @@ class SortieRepository extends ServiceEntityRepository
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-
-// sql to delete a record
-        $sql = "DELETE FROM sortie WHERE id=$id";
+        $sql = "UPDATE Sortir/src/Entity/Sortie SET descriptioninfos = $description WHERE id=$id";
 
         if ($conn->query($sql) === TRUE) {
-            echo "Record deleted successfully";
+            echo "Record updated successfully";
         } else {
-            echo "Error deleting record: " . $conn->error;
+            echo "Error updating record: " . $conn->error;
         }
 
         $conn->close();
@@ -85,4 +84,5 @@ class SortieRepository extends ServiceEntityRepository
         ;
     }
     */
+
 }
