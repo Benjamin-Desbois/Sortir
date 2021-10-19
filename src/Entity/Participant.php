@@ -79,16 +79,6 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $roles = [];
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Sortie::class, inversedBy="participants_no_participant")
-     */
-    private $sorties_no_sortie;
-
-    public function __construct()
-    {
-        $this->sorties_no_sortie = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -263,29 +253,6 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    /**
-     * @return Collection|Sortie[]
-     */
-    public function getSortiesNoSortie(): Collection
-    {
-        return $this->sorties_no_sortie;
-    }
-
-    public function addSortiesNoSortie(Sortie $sortiesNoSortie): self
-    {
-        if (!$this->sorties_no_sortie->contains($sortiesNoSortie)) {
-            $this->sorties_no_sortie[] = $sortiesNoSortie;
-        }
-
-        return $this;
-    }
-
-    public function removeSortiesNoSortie(Sortie $sortiesNoSortie): self
-    {
-        $this->sorties_no_sortie->removeElement($sortiesNoSortie);
-
-        return $this;
-    }
     public function __toString() {
         return $this->nom;
     }

@@ -77,16 +77,6 @@ class Sortie
      */
     private $etats_no_etat;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Participant::class, mappedBy="sorties_no_sortie")
-     */
-    private $participants_no_participant;
-
-    public function __construct()
-    {
-        $this->participants_no_participant = new ArrayCollection();
-    }
-
 
     public function getId(): ?int
     {
@@ -225,32 +215,6 @@ class Sortie
         return $this;
     }
 
-    /**
-     * @return Collection|Participant[]
-     */
-    public function getParticipantsNoParticipant(): Collection
-    {
-        return $this->participants_no_participant;
-    }
-
-    public function addParticipantsNoParticipant(Participant $participantsNoParticipant): self
-    {
-        if (!$this->participants_no_participant->contains($participantsNoParticipant)) {
-            $this->participants_no_participant[] = $participantsNoParticipant;
-            $participantsNoParticipant->addSortiesNoSortie($this);
-        }
-
-        return $this;
-    }
-
-    public function removeParticipantsNoParticipant(Participant $participantsNoParticipant): self
-    {
-        if ($this->participants_no_participant->removeElement($participantsNoParticipant)) {
-            $participantsNoParticipant->removeSortiesNoSortie($this);
-        }
-
-        return $this;
-    }
     /*
     public function __toString(){
         return $this->addParticipantsNoParticipant() ?? "Inscrit";
