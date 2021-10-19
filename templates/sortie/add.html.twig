@@ -24,42 +24,74 @@
     <div><label>Ville :</label>
         <select id="villes">
             {% for ville in villes %}
-            <option value="{{ ville.id }}">{{ ville.nomville }}</option>
+                <option value="{{ ville.id }}">{{ ville.nomville }}</option>
             {% endfor %}
         </select></div>
     <p>{{ form_row(formSortie.lieux_no_lieu, {label: "Lieu : "}) }}</p>
     <div><label>LieuJson :</label>
-        <select id="lieux"></select>
+        <select id="lieux">
+        </select>
     </div>
-    <p><label>Rue :</label></p>
-    <p id="codePostal"><label>Code Postal :</label></p>
-    <p><label>Latitude :</label>TODO</p>
-    <p><label>Longitude :</label>TODO</p>
+    <p id="rue">Rue :</p>
+    <p id="codePostal">Code Postal :</p>
+    <p id="latitude">Latitude :</p>
+    <p id="longitude">Longitude :</p>
     <input type="submit" value="Enregistrer">
     <input type="submit" value="Publiez la sortie">
-    <a href="{{ path('app_home') }}"><button type="button">Annuler</button></a>
+    <a href="{{ path('app_home') }}">
+        <button type="button">Annuler</button>
+    </a>
     {{ form_end(formSortie) }}
 
 {% endblock %}
 
 {% block javascripts %}
-<script>
-    $(document).ready(function(){
-        $("#villes").change(function(){
-            let id = $(this).val();
-            let lieux = document.getElementById("lieux");
+    <script>
 
-            fetch("/getLieuxByVille/"+id)
-                .then(reponse => reponse.json())
-                .then(data => {
-                    lieux.innerHTML = "";
-                    for (let lieu of data){
-                        lieux.innerHTML += "<option value='"+lieu.id+"'>"+lieu.nom_lieu+"</option>";
-                    }
-                    document.getElementById("codePostal").innerText = "Code Postal : 00000";
-                })
-                .catch(erreur => console.log(erreur));
+        $(document).ready(function () {
+            $(document).ready(lieuCP);
+            $("#villes").change(lieuCP);
+            $("#lieux").change(lieuData);
+
+            function lieuCP() {
+                let id = document.getElementById("villes").value;
+                let lieux = document.getElementById("lieux");
+                let cp = document.getElementById("codePostal");
+
+                fetch("/getLieuxByVille/" + id)
+                    .then(reponse => reponse.json())
+                    .then(data => {
+                        lieux.innerHTML = "";
+                        for (let lieu of data) {
+                            lieux.innerHTML += "<option value='" + lieu.id + "'>" + lieu.nom_lieu + "</option>";
+                        }
+                         lieuData();
+                    })
+                    .catch(erreur => console.log(erreur));
+
+                fetch("/getCodePostal/" + id)
+                    .then(reponse => reponse.json())
+                    .then(data => {
+                        cp.innerText = "Code Postal : " + data[0].code_postal;
+                    })
+                    .catch(erreur => console.log(erreur));
+            }
+
+            function lieuData() {
+                let id = document.getElementById("lieux").value;
+                let rue = document.getElementById("rue");
+                let latitude = document.getElementById("latitude");
+                let longitude = document.getElementById("longitude");
+
+                fetch("/getLieu/" + id)
+                    .then(reponse => reponse.json())
+                    .then(data => {
+                        rue.innerText = "Rue : " + data[0].rue;
+                        latitude.innerText = "Latitude : " + data[0].latitude;
+                        longitude.innerText = "Longitude : " + data[0].longitude;
+                    })
+                    .catch(erreur => console.log(erreur));
+            }
         });
-    });
-</script>
+    </script>
 {% endblock %}

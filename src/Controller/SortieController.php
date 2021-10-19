@@ -77,7 +77,6 @@ class SortieController extends AbstractController
     public function getLieuxByVille(Request $request, LieuRepository $lieuRepo, VilleRepository $villeRepo, $idville=1): Response
     {
         $lieux = $lieuRepo->findBy(['villes_no_ville'=>$idville]);
-        $ville = $villeRepo->findOneBy(['id'=>$idville]);
         $listeLieux = array();
 
         foreach ($lieux as $lieu) {
@@ -91,7 +90,37 @@ class SortieController extends AbstractController
             );
         }
         return new JsonResponse($listeLieux);
-        //IDEE FAIRE JSON POUR RECUP VILLE (CP) ET JSON POUR LIEU
+    }
+
+    /**
+     * @Route("/getCodePostal/{idville}", name="getCodePostal")
+     */
+    public function getCodePostal(Request $request, VilleRepository $villeRepo, $idville=1): Response
+    {
+        $ville = $villeRepo->findOneBy(['id'=>$idville]);
+            $villeSelect[] = array(
+                'id'=>$ville->getId(),
+                'nom_ville'=>$ville->getNomVille(),
+                'code_postal'=>$ville->getCodePostal()
+            );
+        return new JsonResponse($villeSelect);
+    }
+
+    /**
+     * @Route("/getLieu/{idlieu}", name="getLieu")
+     */
+    public function getLieu(Request $request, LieuRepository $lieuRepo, $idlieu=1): Response
+    {
+        $lieu = $lieuRepo->findOneBy(['id'=>$idlieu]);
+            $lieuSelect[] = array(
+                'id'=>$lieu->getId(),
+                'nom_lieu'=>$lieu->getNomLieu(),
+                'rue'=>$lieu->getRue(),
+                'latitude'=>$lieu->getLatitude(),
+                'longitude'=>$lieu->getLongitude(),
+                'ville'=>$lieu->getVillesNoVille()
+            );
+        return new JsonResponse($lieuSelect);
     }
 
     /**
