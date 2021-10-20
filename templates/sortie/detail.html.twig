@@ -3,25 +3,95 @@
 {% block title %}Sortie{% endblock %}
 
 {% block contenu %}
-
-<h1>Afficher une sortie</h1>
-    <div class="card w-75">
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+    <div class="row">
+        <h1 id="title" class="text-center">Afficher une sortie</h1>
+    </div>
+    <div class="row">
+        <div class="card w-75 text-center col">
+            <div class="card-body text-center">
+                <h5 class="card-title">Nom de la sortie : </h5>
+                <p class="card-text">{{ sortie.nom }}</p>
+            </div>
         </div>
     </div>
-    <p><label>Nom de la sortie : </label>{{ sortie.nom }}</p>
-    <p><label>Date et heure de la sortie : </label>{{ sortie.datedebut|date("d M Y H:i") }}</p>
-    <p><label>Date limite d'inscription : </label>{{ sortie.datecloture|date("d M Y H:i") }}</p>
-    <p><label>Nombre de places : </label>{{ sortie.nbinscriptionsmax }}</p>
-    <p><label>Durée : </label>{{ sortie.duree }} minutes</p>
-    <p><label>Description et infos : </label>{{ sortie.descriptioninfos }}</p>
-    <p><label>Ville organisatrice : </label></p>
-    <p><label>Lieu : </label>{{ lieu.nomlieu }}</p>
-    <p><label>Rue : </label>{{ lieu.rue }}</p>
-    <p><label>Code postal : </label>{{ ville.codepostal }}</p>
-    <p><label>latitude : </label>{{ lieu.latitude }}</p>
-    <p><label>longitude : </label>{{ lieu.longitude }}</p>
+    <div class="row">
+        <div class="card w-75 col text-center ">
+            <div class="card-body">
+                <h5 class="card-title">Date et heure de la sortie : </h5>
+                <p class="card-text">{{ sortie.datecloture|date("d M Y H:i") }}</p>
+            </div>
+        </div>
+        <div class="card w-75 col text-center">
+            <div class="card-body">
+                <h5 class="card-title">Date limite d'inscription : </h5>
+                <p class="card-text">{{ sortie.datecloture|date("d M Y H:i") }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card w-75 col text-center">
+            <div class="card-body">
+                <h5 class="card-title">Nombre de places : </h5>
+                <p class="card-text">{{ sortie.nbinscriptionsmax }}</p>
+            </div>
+        </div>
+        <div class="card w-75 col text-center">
+            <div class="card-body">
+                <h5 class="card-title">Durée : </h5>
+                <p class="card-text">{{ sortie.duree }} minutes</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card w-75 col text-center">
+            <div class="card-body">
+                <h5 class="card-title">Description et infos : </h5>
+                <p class="card-text">{{ sortie.descriptioninfos }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card w-75 col text-center">
+            <div class="card-body">
+                <h5 class="card-title">Ville organisatrice : </h5>
+                <p class="card-text"></p>
+            </div>
+        </div>
+        <div class="card w-75 col text-center">
+            <div class="card-body">
+                <h5 class="card-title">Lieu : </h5>
+                <p class="card-text">{{ lieu.nomlieu }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card w-75 col text-center">
+            <div class="card-body">
+                <h5 class="card-title">Rue : </h5>
+                <p class="card-text">{{ lieu.rue }}</p>
+            </div>
+        </div>
+        <div class="card w-75 col text-center">
+            <div class="card-body">
+                <h5 class="card-title">Code postal : </h5>
+                <p class="card-text">{{ ville.codepostal }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card w-75 col text-center">
+            <div class="card-body">
+                <h5 class="card-title">Latitude : </h5>
+                <p class="card-text">{{ lieu.latitude }}</p>
+            </div>
+        </div>
+        <div class="card w-75 col text-center">
+            <div class="card-body">
+                <h5 class="card-title">Longitude : </h5>
+                <p class="card-text">{{ lieu.longitude }}</p>
+            </div>
+        </div>
+    </div>
+    <a class="btn btn-primary" href="modifier sortie, c'est pour toi maxime" role="button">Modifier Sortie</a>
 
 {% endblock %}
