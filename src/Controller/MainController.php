@@ -55,4 +55,17 @@ class MainController extends AbstractController
         return $this->redirectToRoute("app_home");
     }
 
+    /** @Route ("/SupprInscription/{id}", name="app_SupprInscription", requirements={"id":"\d+"}) */
+    public function deleteSortie ($id,SortieRepository $sortieRepo, InscriptionRepository $inscriptionRepo, ParticipantRepository $participantRepo) : Response
+    {
+
+        $user = $this->getUser();
+        $pseudo = $user->getUserIdentifier();
+        $participant = $participantRepo->findOneBy(['pseudo'=>$pseudo]);
+        $participantId = $participant->getId();
+        $sortieRepo->find($id);
+        $inscriptionRepo->desisterDQL($participantId,$id);
+        return $this->redirectToRoute("app_home");
+    }
+
 }

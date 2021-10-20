@@ -110,7 +110,7 @@
                                 {% endfor %}
                                 {% if inscrit==true %}
                                     <button type="button" class="btn btn-success"><a id="link"
-                                                                                     href="#">Se désister</a>
+                                                                                     href="{{ path('app_SupprInscription', {'id': sortie.id}) }}">Se désister</a>
                                     </button>
                                 {% else %}
                                     <button type="button" class="btn btn-success"><a id="link"
