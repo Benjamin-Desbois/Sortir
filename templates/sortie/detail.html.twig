@@ -4,24 +4,24 @@
 
 {% block contenu %}
     <div class="row">
-        <h1 id="title" class="text-center">Afficher une sortie</h1>
+        <h1 id="title" class="text-center">Détails</h1>
     </div>
-    <div class="row">
-        <div class="card w-75 text-center col">
+    <div class="row offset-2">
+        <div class="card w-75 text-center col-8 " id="color">
             <div class="card-body text-center">
-                <h5 class="card-title">Nom de la sortie : </h5>
-                <p class="card-text">{{ sortie.nom }}</p>
+                <h4 class="card-title">{{ sortie.nom }}</h4>
+
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="card w-75 col text-center ">
+        <div class="card w-75 col text-center " id="margin">
             <div class="card-body">
                 <h5 class="card-title">Date et heure de la sortie : </h5>
-                <p class="card-text">{{ sortie.datecloture|date("d M Y H:i") }}</p>
+                <p class="card-text">{{ sortie.datedebut|date("d M Y H:i") }}</p>
             </div>
         </div>
-        <div class="card w-75 col text-center">
+        <div class="card w-75 col text-center" id="margin">
             <div class="card-body">
                 <h5 class="card-title">Date limite d'inscription : </h5>
                 <p class="card-text">{{ sortie.datecloture|date("d M Y H:i") }}</p>
@@ -29,21 +29,21 @@
         </div>
     </div>
     <div class="row">
-        <div class="card w-75 col text-center">
+        <div class="card w-75 col text-center" id="margin">
             <div class="card-body">
                 <h5 class="card-title">Nombre de places : </h5>
                 <p class="card-text">{{ sortie.nbinscriptionsmax }}</p>
             </div>
         </div>
-        <div class="card w-75 col text-center">
+        <div class="card w-75 col text-center" id="margin">
             <div class="card-body">
                 <h5 class="card-title">Durée : </h5>
                 <p class="card-text">{{ sortie.duree }} minutes</p>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="card w-75 col text-center">
+    <div class="row offset-2">
+        <div class="card w-75 col-8 text-center" id="margin">
             <div class="card-body">
                 <h5 class="card-title">Description et infos : </h5>
                 <p class="card-text">{{ sortie.descriptioninfos }}</p>
@@ -51,13 +51,14 @@
         </div>
     </div>
     <div class="row">
-        <div class="card w-75 col text-center">
+        <div class="card w-75 col text-center" id="margin">
             <div class="card-body">
-                <h5 class="card-title">Ville organisatrice : </h5>
-                <p class="card-text"></p>
+                <h5 class="card-title">Organisateur : </h5>
+                <a href="{{ path('app_profilDetail', {'id': sortie.organisateur.id}) }}" id="noUnderline"><p
+                            class="card-text">{{ sortie.organisateur.pseudo }}</p></a>
             </div>
         </div>
-        <div class="card w-75 col text-center">
+        <div class="card w-75 col text-center" id="margin">
             <div class="card-body">
                 <h5 class="card-title">Lieu : </h5>
                 <p class="card-text">{{ lieu.nomlieu }}</p>
@@ -65,13 +66,13 @@
         </div>
     </div>
     <div class="row">
-        <div class="card w-75 col text-center">
+        <div class="card w-75 col text-center" id="margin">
             <div class="card-body">
                 <h5 class="card-title">Rue : </h5>
                 <p class="card-text">{{ lieu.rue }}</p>
             </div>
         </div>
-        <div class="card w-75 col text-center">
+        <div class="card w-75 col text-center" id="margin">
             <div class="card-body">
                 <h5 class="card-title">Code postal : </h5>
                 <p class="card-text">{{ ville.codepostal }}</p>
@@ -79,19 +80,23 @@
         </div>
     </div>
     <div class="row">
-        <div class="card w-75 col text-center">
+        <div class="card w-75 col text-center" id="margin">
             <div class="card-body">
                 <h5 class="card-title">Latitude : </h5>
                 <p class="card-text">{{ lieu.latitude }}</p>
             </div>
         </div>
-        <div class="card w-75 col text-center">
+        <div class="card w-75 col text-center" id="margin">
             <div class="card-body">
                 <h5 class="card-title">Longitude : </h5>
                 <p class="card-text">{{ lieu.longitude }}</p>
             </div>
         </div>
     </div>
-    <a class="btn btn-primary" href="modifier sortie, c'est pour toi maxime" role="button">Modifier Sortie</a>
+    <div class="row text-center">
+        <div class="col">
+        <a class="btn btn-primary btn-lg text-ce" href="modifier sortie, c'est pour toi maxime" role="button">Modifier Sortie</a>
+        </div>
+    </div>
 
 {% endblock %}
