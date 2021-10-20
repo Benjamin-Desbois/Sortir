@@ -1,9 +1,14 @@
+
+
 .row{
     padding: 1em;
 }
 .container{
-    background-color:bisque;
+    background-color: #F1F1F1;
     font-family: "Gill Sans", sans-serif;
+/*    background-image: url("https://image.shutterstock.com/z/stock-photo-old-woman-with-pistol-on-a-white-background-182174168.jpg") ;
+    background-repeat: no-repeat;
+    background-repeat: round;*/
 }
 
 #creation{
@@ -36,6 +41,7 @@
 
 #image{
     border-radius: 500px;
+    margin-left: 10px;
 }
 
 #profil{
@@ -49,4 +55,22 @@
 
 textarea{
     resize: none;
+}
+
+#color{
+    background-color: gray;
+    color: white;
+    margin: 10px;
+}
+
+#decale{
+    padding-left: 50px;
+}
+
+#noUnderline{
+    text-decoration: none;
+}
+
+#margin{
+    margin: 10px;
 }

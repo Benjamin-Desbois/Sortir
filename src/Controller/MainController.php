@@ -26,6 +26,7 @@ class MainController extends AbstractController
             $sorties = $sortieRepo->findALl();
             $sites = $siteRepo->findAll();
             $participant = $participantRepo ->findALl();
+
             return $this->render('main/index.html.twig', ['user'=>$user, 'sorties'=>$sorties, 'sites'=>$sites, 'participant'=>$participant,'orga'=>$orga]);
         }
     }
