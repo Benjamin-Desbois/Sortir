@@ -5,6 +5,12 @@
 {% block contenu %}
 
 <h1>Afficher une sortie</h1>
+    <div class="card w-75">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        </div>
+    </div>
     <p><label>Nom de la sortie : </label>{{ sortie.nom }}</p>
     <p><label>Date et heure de la sortie : </label>{{ sortie.datedebut|date("d M Y H:i") }}</p>
     <p><label>Date limite d'inscription : </label>{{ sortie.datecloture|date("d M Y H:i") }}</p>

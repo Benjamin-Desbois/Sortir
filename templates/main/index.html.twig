@@ -84,7 +84,7 @@
                 <tbody>
                 {% for sortie in sorties %}
                     <tr>
-                        <td>{{ sortie.nom }}</td>
+                        <td><a href="{{ path('detail', {'id': sortie.id}) }}">{{ sortie.nom }}</a></td>
                         <td>{{ sortie.datedebut|date("d M Y H:i") }}</td>
                         <td>{{ sortie.datecloture|date("d M Y") }}</td>
                         <td>{{ sortie.nbinscriptionsmax }}</td>

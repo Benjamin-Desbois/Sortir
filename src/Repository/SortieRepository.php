@@ -45,7 +45,7 @@ class SortieRepository extends ServiceEntityRepository
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
-        $sql = "UPDATE Sortir/src/Entity/Sortie SET descriptioninfos = $description WHERE id=$id";
+        $sql = "UPDATE sortie SET descriptioninfos = '$description', etats_no_etat_id ='2' WHERE id=$id";
 
         if ($conn->query($sql) === TRUE) {
             echo "Record updated successfully";
