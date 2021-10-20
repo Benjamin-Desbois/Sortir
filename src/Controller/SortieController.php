@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\SortieFormType;
+use App\Form\UpdateSortieType;
 use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
@@ -18,15 +19,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SortieController extends AbstractController
 {
-//    /**
-//     * @Route("/sortie/page/{numPage}", name="page", requirements={"numPage":"\d+"})
-//     */
-//    public function page($numPage, SortieRepository $repository): Response
-//    {
-//        $sorties = $repository->findAllwithPists(3,$numPage);
-//        return $this->render('sortie/index.html.twig', ['sorties'=>$sorties, 'numPage'=>$numPage]);
-//    }
-
     /** @Route("/sortie/add", name="add") */
     public function add(Request $request, EntityManagerInterface $em, EtatRepository $etatRepo, VilleRepository $villeRepo): Response
     {
@@ -35,7 +27,6 @@ class SortieController extends AbstractController
         $form->handleRequest($request);
         $orga = $this->getUser();
         $villes = $villeRepo->findALl();
-
         if ($form->isSubmitted() && $form->isValid()) {
             $sortie->setEtatsNoEtat($etatRepo->findOneBy(["id" => 1]));
             $sortie->setOrganisateur($this->getUser());
@@ -116,11 +107,18 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/sortie/modifier", name="modifier_sortie")
+     * @Route("/sortie/modifier/{id}", name="modifier_sortie")
      */
-    public function modifierSortie(): Response
+    public function modifierSortie(Request $request, EntityManagerInterface $em): Response
     {
-        return $this->render('sortie/modifierSortie.html.twig', []);
+        $sortie = new Sortie();
+        $form = $this->createForm(UpdateSortieType::class,$sortie);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+        }
+
+        return $this->render('sortie/modifierSortie.html.twig', ['modifierSortie' => $form->createView()]);
     }
 
     /**

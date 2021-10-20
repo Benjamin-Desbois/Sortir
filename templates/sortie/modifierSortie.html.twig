@@ -6,4 +6,13 @@
     <div class="text-center">
         <h1>Modifier une sortie! ✅</h1>
     </div>
+    {{ form_start(modifierSortie) }}
+    <p>{{ form_row(modifierSortie.nom, {label: "Nom de la sortie :"}) }}</p>
+    <p>{{ form_row(modifierSortie.datedebut, {label: "Date et heure de la sortie :"}) }}</p>
+    <p>{{ form_row(modifierSortie.datecloture, {label: "Date limite d'inscription :"}) }}</p>
+    <p>{{ form_row(modifierSortie.nbinscriptionsmax, {label: 'Nombre de places :'}) }}</p>
+    <p>{{ form_row(modifierSortie.duree, {label: "Durée :"}) }} minutes</p>
+    <p>{{ form_row(modifierSortie.descriptioninfos, {label: 'Description et infos :'}) }}</p>
+    <p>{{ form_row(modifierSortie.lieux_no_lieu, {label: "Lieu : "}) }}</p>
+    {{ form_end(modifierSortie) }}
 {% endblock %}
