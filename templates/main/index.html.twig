@@ -94,10 +94,32 @@
                         </td>
                         <td>
                             {% if (sortie.organisateur.pseudo == user.pseudo) %}
-                                <button type="button" class="btn btn-danger"><a id="link" href="{{ path('app_deleteSortie', {'id': sortie.id}) }}">Supprimer</a></button>
+                                <button type="button" class="btn btn-danger"><a id="link"
+                                                                                href="{{ path('app_deleteSortie', {'id': sortie.id}) }}">Supprimer</a>
+                                </button>
                             {% endif %}
-                            {% if sortie.organisateur.pseudo!=user.pseudo %}
-                                <button type="button" class="btn btn-success">S'inscrire</button>
+                            {# {% for i in inscription %}
+                                {{ loop.index0 }} - {{ i.participantsnoparticipant.id }}
+                                <p>Coucou</p>
+                            {% endfor %} #}
+                            {% if (sortie.organisateur.pseudo!=user.pseudo) %}
+                                {% set inscrit=false %}
+                                {% for i in inscription %}
+                                    {% if (user.id == i.participantsnoparticipant.id) and (sortie.id  == i.sortiesnosortie.id) %}
+                                        {% set inscrit = true %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if inscrit==true %}
+                                    <button type="button" class="btn btn-success"><a id="link"
+                                                                                     href="#">Se désister</a>
+                                    </button>
+                                {% else %}
+                                    <button type="button" class="btn btn-success"><a id="link"
+                                                                                     href="{{ path('app_inscriptionSortie', {'id': sortie.id}) }}">S'inscrire</a>
+                                    </button>
+                                {% endif %}
+
+
                             {% endif %}
                         </td>
 
