@@ -83,7 +83,7 @@
                 </thead>
                 <tbody>
                 {% for sortie in sorties %}
-                    {% if ("now"|date("Y M d") < sortie.datedebut|date_modify("+30 day")|date("Y M d")) %}
+                    {% if ("now"|date("Y m d") < sortie.datedebut|date_modify("+30 day")|date("Y m d")) %}
                     <tr>
                         <td><a href="{{ path('detail', {'id': sortie.id}) }}" id="noUnderline">{{ sortie.nom }}</a></td>
                         <td>{{ sortie.datedebut|date("d M Y H:i") }}</td>
@@ -102,6 +102,7 @@
                                 {{ loop.index0 }} - {{ i.participantsnoparticipant.id }}
                                 <p>Coucou</p>
                             {% endfor %} #}
+                        {% if ("now"|date("Y M d") < sortie.datecloture|date("Y M d")) %}
                             {% if (sortie.organisateur.pseudo!=user.pseudo) %}
                                 {% set inscrit=false %}
                                 {% for i in inscription %}
@@ -122,6 +123,7 @@
 
                             {% endif %}
                         </td>
+                        {% endif %}
 
                     </tr>
                     {% endif %}
