@@ -82,9 +82,15 @@ class Sortie
      */
     private $participants_no_participant;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Inscription::class, mappedBy="sorties_no_sortie")
+     */
+    private $sortie_inscription;
+
     public function __construct()
     {
         $this->participants_no_participant = new ArrayCollection();
+        $this->sortie_inscription = new ArrayCollection();
     }
 
 
@@ -256,5 +262,35 @@ class Sortie
         return $this->addParticipantsNoParticipant() ?? "Inscrit";
     }
     */
+
+    /**
+     * @return Collection|Inscription[]
+     */
+    public function getSortieInscription(): Collection
+    {
+        return $this->sortie_inscription;
+    }
+
+    public function addSortieInscription(Inscription $sortieInscription): self
+    {
+        if (!$this->sortie_inscription->contains($sortieInscription)) {
+            $this->sortie_inscription[] = $sortieInscription;
+            $sortieInscription->setSortiesNoSortie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSortieInscription(Inscription $sortieInscription): self
+    {
+        if ($this->sortie_inscription->removeElement($sortieInscription)) {
+            // set the owning side to null (unless already changed)
+            if ($sortieInscription->getSortiesNoSortie() === $this) {
+                $sortieInscription->setSortiesNoSortie(null);
+            }
+        }
+
+        return $this;
+    }
 
 }
