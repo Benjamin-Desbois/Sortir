@@ -81,7 +81,9 @@ class RegistrationController extends AbstractController
                 $unique = true;
 
 
+
             if ( isset( $_POST['modifier'] )) {
+                dd($_POST);
 
                 $request->request->get('pseudo');
                 if ( $_POST['pseudo'] != null) {

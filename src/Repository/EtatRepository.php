@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Etat;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use mysqli;
 
 /**
  * @method Etat|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,6 +19,32 @@ class EtatRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Etat::class);
     }
+
+    public function publier($id)
+    {
+        $servername = "localhost";
+        $username = "root";
+        $dbname = "sortie";
+        $password ='';
+
+// Create connection
+
+        $conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        }
+        $sql = "UPDATE sortie SET etats_no_etat_id ='4' WHERE id=$id";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "Record updated successfully";
+        } else {
+            echo "Error updating record: " . $conn->error;
+        }
+
+        $conn->close();
+    }
+
 
     // /**
     //  * @return Etat[] Returns an array of Etat objects
@@ -47,4 +74,5 @@ class EtatRepository extends ServiceEntityRepository
         ;
     }
     */
+
 }

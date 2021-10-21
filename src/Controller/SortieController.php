@@ -27,8 +27,14 @@ class SortieController extends AbstractController
         $form->handleRequest($request);
         $orga = $this->getUser();
         $villes = $villeRepo->findALl();
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $sortie->setEtatsNoEtat($etatRepo->findOneBy(["id" => 1]));
+
+            if (isset($_POST['publier'])) {
+                $sortie->setEtatsNoEtat($etatRepo->findOneBy(["id" => 4]));
+            } else {
+                $sortie->setEtatsNoEtat($etatRepo->findOneBy(["id" => 5]));
+            }
             $sortie->setOrganisateur($this->getUser());
             $em->persist($sortie);
             $em->flush();
@@ -57,9 +63,10 @@ class SortieController extends AbstractController
      * @Route("/getLieuxByVille/{idville}", name="getLieuxByVille")
      */
 
-    public function getLieuxByVille(LieuRepository $lieuRepo, VilleRepository $villeRepo, $idville=1): Response
+
+    public function getLieuxByVille(LieuRepository $lieuRepo, VilleRepository $villeRepo, $idville): Response
     {
-        $lieux = $lieuRepo->findBy(['villes_no_ville'=>$idville]);
+        $lieux = $lieuRepo->findBy(['villes_no_ville' => $idville]);
         $listeLieux = array();
 
         foreach ($lieux as $lieu) {
@@ -78,47 +85,51 @@ class SortieController extends AbstractController
     /**
      * @Route("/getCodePostal/{idville}", name="getCodePostal")
      */
-    public function getCodePostal(VilleRepository $villeRepo, $idville=1): Response
+    public function getCodePostal(VilleRepository $villeRepo, $idville): Response
     {
-        $ville = $villeRepo->findOneBy(['id'=>$idville]);
-            $villeSelect[] = array(
-                'id'=>$ville->getId(),
-                'nom_ville'=>$ville->getNomVille(),
-                'code_postal'=>$ville->getCodePostal()
-            );
+        $ville = $villeRepo->findOneBy(['id' => $idville]);
+        $villeSelect[] = array(
+            'id' => $ville->getId(),
+            'nom_ville' => $ville->getNomVille(),
+            'code_postal' => $ville->getCodePostal()
+        );
         return new JsonResponse($villeSelect);
     }
 
     /**
      * @Route("/getLieu/{idlieu}", name="getLieu")
      */
-    public function getLieu(LieuRepository $lieuRepo, $idlieu=1): Response
+    public function getLieu(LieuRepository $lieuRepo, $idlieu): Response
     {
-        $lieu = $lieuRepo->findOneBy(['id'=>$idlieu]);
-            $lieuSelect[] = array(
-                'id'=>$lieu->getId(),
-                'nom_lieu'=>$lieu->getNomLieu(),
-                'rue'=>$lieu->getRue(),
-                'latitude'=>$lieu->getLatitude(),
-                'longitude'=>$lieu->getLongitude(),
-                'ville'=>$lieu->getVillesNoVille()
-            );
+        $lieu = $lieuRepo->findOneBy(['id' => $idlieu]);
+        $lieuSelect[] = array(
+            'id' => $lieu->getId(),
+            'nom_lieu' => $lieu->getNomLieu(),
+            'rue' => $lieu->getRue(),
+            'latitude' => $lieu->getLatitude(),
+            'longitude' => $lieu->getLongitude(),
+            'ville' => $lieu->getVillesNoVille()
+        );
         return new JsonResponse($lieuSelect);
     }
 
     /**
-     * @Route("/sortie/modifier/{id}", name="modifier_sortie")
+     * @Route("/sortie/modifier/{id}", name="modifier_sortie", requirements={"id":"\d+"}))
      */
-    public function modifierSortie(Request $request, EntityManagerInterface $em): Response
+    public function modifierSortie($id, Request $request, EntityManagerInterface $em, SortieRepository $sortieRepo, VilleRepository $villeRepo): Response
     {
-        $sortie = new Sortie();
+        $sortie = $sortieRepo->findOneBy(['id'=>$id]);
         $form = $this->createForm(UpdateSortieType::class,$sortie);
-
+        $form->handleRequest($request);
+        $orga = $this->getUser();
+        $villes = $villeRepo->findALl();
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $sortie = $form->getData();
+            $em->persist($sortie);
+            $em->flush();
+            $this->addFlash('success', 'La sortie a bien été ajouté');
         }
-
-        return $this->render('sortie/modifierSortie.html.twig', ['modifierSortie' => $form->createView()]);
+        return $this->render('sortie/modifierSortie.html.twig', ['modifierSortie' => $form->createView(),'sortie' => $sortie,'orga' => $orga, 'villes' => $villes]);
     }
 
     /**
@@ -128,11 +139,22 @@ class SortieController extends AbstractController
     {
         $sortie = $sortieRepo->findOneBy(['id' => $id]);
 
-        if (isset( $_POST['modifier'])) {
+        if (isset($_POST['modifier'])) {
             $sortieRepo->deleteSortieDQL($id, $_POST['description']);
             return $this->redirectToRoute('app_home');
         }
 
         return $this->render('sortie/annuler.html.twig', ['sortie' => $sortie]);
     }
+
+    /**
+     * @Route("/sortie/publier/{id}", name="publier_sortie", requirements={"id":"\d+"})
+     */
+    public function publierSortie($id, EtatRepository $etatRepo): Response
+    {
+        $etatRepo->publier($id);
+        return $this->redirectToRoute('app_home');
+    }
 }
+
+
