@@ -3,6 +3,7 @@
 {% block title %}Accueil{% endblock %}
 
 {% block contenu %}
+
     <div class="text-end">
         <br>
         <p>
@@ -93,7 +94,8 @@
                             </td>
                             <td>{{ sortie.datedebut|date("d M Y H:i") }}</td>
                             <td>{{ sortie.datecloture|date("d M Y") }}</td>
-                            <td>{{ sortie.sortieinscription.count }}/{{ sortie.nbinscriptionsmax }}</td>
+                            <td>{{ sortie.sortieinscription.count }}/{{ sortie.nbinscriptionsmax }}
+                            </td>
                             <td>{{ sortie.etatsnoetat }}</td>
                             <td> {% set inscrit=false %}
                                 {% for i in inscription %}
@@ -130,7 +132,7 @@
                                                                                          href="{{ path('app_SupprInscription', {'id': sortie.id}) }}">Se
                                                 désister</a>
                                         </button>
-                                    {% elseif sortie.sortieinscription.count <= sortie.nbinscriptionsmax %}
+                                    {% elseif sortie.sortieinscription.count < sortie.nbinscriptionsmax %}
                                         <button type="button" class="btn btn-success"><a id="link"
                                                                                          href="{{ path('app_inscriptionSortie', {'id': sortie.id}) }}">S'inscrire</a>
                                         </button>
