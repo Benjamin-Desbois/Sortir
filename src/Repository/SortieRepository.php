@@ -5,10 +5,8 @@ namespace App\Repository;
 use App\Entity\Sortie;
 use DateInterval;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use mysqli;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @method Sortie|null find($id, $lockMode = null, $lockVersion = null)
