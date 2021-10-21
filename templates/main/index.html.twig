@@ -98,10 +98,6 @@
                             {% if (sortie.organisateur.pseudo == user.pseudo) %}
                                 <button type="button" class="btn btn-danger"><a id="link" href="{{ path('annuler_sortie', {'id': sortie.id}) }}" id="noUnderline">Supprimer</a></button>
                             {% endif %}
-                            {# {% for i in inscription %}
-                                {{ loop.index0 }} - {{ i.participantsnoparticipant.id }}
-                                <p>Coucou</p>
-                            {% endfor %} #}
                         {% if ("now"|date("Y M d") < sortie.datecloture|date("Y M d")) %}
                             {% if (sortie.organisateur.pseudo!=user.pseudo) %}
                                 {% set inscrit=false %}
@@ -111,16 +107,10 @@
                                     {% endif %}
                                 {% endfor %}
                                 {% if inscrit==true %}
-                                    <button type="button" class="btn btn-success"><a id="link"
-                                                                                     href="#">Se désister</a>
-                                    </button>
+                                    <button type="button" class="btn btn-success"><a id="link" href="#">Se désister</a></button>
                                 {% else %}
-                                    <button type="button" class="btn btn-success"><a id="link"
-                                                                                     href="{{ path('app_inscriptionSortie', {'id': sortie.id}) }}">S'inscrire</a>
-                                    </button>
+                                    <button type="button" class="btn btn-success"><a id="link" href="{{ path('app_inscriptionSortie', {'id': sortie.id}) }}">S'inscrire</a></button>
                                 {% endif %}
-
-
                             {% endif %}
                         </td>
                         {% endif %}
