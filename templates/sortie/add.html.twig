@@ -90,8 +90,9 @@
     <p id="latitude">Latitude :</p>
     <p id="longitude">Longitude :</p>
     <button type="submit" name="enregistrer">Enregistrer</button>
+    <a href="{{ path('app_inscriptionSortie', {'id': orga.id }) }}">
     <button type="submit" name="publier">Publiez la sortie</button>
-
+    </a>
     <a href="{{ path('app_home') }}">
         <button type="button">Annuler</button>
     </a>
