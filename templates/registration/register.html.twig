@@ -9,12 +9,12 @@
         <h1 id="title">Créer un compte</h1>
     </div>
     {{ form_start(registrationForm) }}
-    <div class="row">
+    <div class="row offset-1">
         <div class="col-3">
             {{ form_row(registrationForm.pseudo) }}
         </div>
     </div>
-    <div class="row">
+    <div class="row offset-1">
         <div class="col-4">
             {{ form_row(registrationForm.nom) }}
         </div>
@@ -22,7 +22,7 @@
             {{ form_row(registrationForm.prenom) }}
         </div>
     </div>
-    <div class="row">
+    <div class="row offset-1">
         <div class="col-4">
             {{ form_row(registrationForm.telephone) }}
         </div>
@@ -30,7 +30,7 @@
             {{ form_row(registrationForm.mail) }}
         </div>
     </div>
-    <div class="row">
+    <div class="row offset-1">
         <div class="col-4">
             {{ form_row(registrationForm.sites_no_site,{
                 label: 'Site'
