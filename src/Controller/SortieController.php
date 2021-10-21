@@ -107,17 +107,22 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/sortie/modifier/{id}", name="modifier_sortie")
+     * @Route("/sortie/modifier/{id}", name="modifier_sortie", requirements={"id":"\d+"}))
      */
     public function modifierSortie(Request $request, EntityManagerInterface $em): Response
     {
         $sortie = new Sortie();
         $form = $this->createForm(UpdateSortieType::class,$sortie);
-
+        $form->handleRequest($request);
+//        $orga = $this->getUser();
+//        $villes = $villeRepo->findALl();
         if ($form->isSubmitted() && $form->isValid()) {
-
+//            $sortie->setEtatsNoEtat($etatRepo->findOneBy(["id" => 1]));
+//            $sortie->setOrganisateur($this->getUser());
+            $em->persist($sortie);
+            $em->flush();
+            return $this->redirectToRoute('modifier_sortie');
         }
-
         return $this->render('sortie/modifierSortie.html.twig', ['modifierSortie' => $form->createView()]);
     }
 
