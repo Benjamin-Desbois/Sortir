@@ -79,7 +79,7 @@ class Sortie
 
     /**
      * @ORM\ManyToMany(targetEntity=Participant::class, mappedBy="sorties_no_sortie")
-     */
+*/
     private $participants_no_participant;
 
     /**

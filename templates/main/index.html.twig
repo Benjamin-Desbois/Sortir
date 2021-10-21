@@ -87,51 +87,59 @@
                 <tbody>
                 {% for sortie in sorties %}
                     {% if ("now"|date("Y m d H i s") < sortie.datedebut|date_modify("+30 day")|date("Y m d H i s")) %}
-                        {% if (sortie.etatsnoetat != 'Non-publié') or (sortie.organisateur.pseudo == user.pseudo) %}
-                            <tr>
-                                <td><a href="{{ path('detail', {'id': sortie.id}) }}"
-                                       id="noUnderline">{{ sortie.nom }}</a>
-                                </td>
-                                <td>{{ sortie.datedebut|date("d M Y H:i") }}</td>
-                                <td>{{ sortie.datecloture|date("d M Y") }}</td>
-                                <td>{{ sortie.nbinscriptionsmax }}</td>
-                                <td>{{ sortie.etatsnoetat }}</td>
-                                <td>Inscrit</td>
-                                <td>
-                                    <a href="{{ path('app_profilDetail', {'id': sortie.organisateur.id}) }}"
-                                       id="noUnderline">{{ sortie.organisateur.pseudo }}</a>
-                                </td>
-                                <td>
-                                    {% if (sortie.organisateur.pseudo == user.pseudo) %}
-                                        <button type="button" class="btn btn-danger"><a id="link"
-                                                                                        href="{{ path('annuler_sortie', {'id': sortie.id}) }}"
-                                                                                        id="noUnderline">Supprimer</a>
+                    {% if (sortie.etatsnoetat != 'Non-publié') or (sortie.organisateur.pseudo == user.pseudo) %}
+                        <tr>
+                            <td><a href="{{ path('detail', {'id': sortie.id}) }}" id="noUnderline">{{ sortie.nom }}</a>
+                            </td>
+                            <td>{{ sortie.datedebut|date("d M Y H:i") }}</td>
+                            <td>{{ sortie.datecloture|date("d M Y") }}</td>
+                            <td>{{ sortie.sortieinscription.count }}/{{ sortie.nbinscriptionsmax }}</td>
+                            <td>{{ sortie.etatsnoetat }}</td>
+                            <td> {% set inscrit=false %}
+                                {% for i in inscription %}
+                                    {% if (user.id == i.participantsnoparticipant.id) and (sortie.id  == i.sortiesnosortie.id) %}
+                                        {% set inscrit = true %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if (inscrit == true) or (sortie.organisateur.pseudo == user.pseudo) %}
+                                    X
+                                {% else %}
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{{ path('app_profilDetail', {'id': sortie.organisateur.id}) }}"
+                                   id="noUnderline">{{ sortie.organisateur.pseudo }}</a>
+                            </td>
+                            <td>
+                                {% if (sortie.organisateur.pseudo == user.pseudo) %}
+                                    <button type="button" class="btn btn-danger"><a id="link"
+                                                                                    href="{{ path('annuler_sortie', {'id': sortie.id}) }}"
+                                                                                    id="noUnderline">Supprimer</a>
+                                    </button>
+                                {% endif %}
+                                {% if ("now"|date("Y M d H i s") < sortie.datecloture|date("Y M d H i s")) %}
+                                {% if (sortie.organisateur.pseudo!=user.pseudo) %}
+                                    {% set inscrit=false %}
+                                    {% for i in inscription %}
+                                        {% if (user.id == i.participantsnoparticipant.id) and (sortie.id  == i.sortiesnosortie.id) %}
+                                            {% set inscrit = true %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if inscrit==true %}
+                                        <button type="button" class="btn btn-success"><a id="link"
+                                                                                         href="{{ path('app_SupprInscription', {'id': sortie.id}) }}">Se
+                                                désister</a>
+                                        </button>
+                                    {% elseif sortie.sortieinscription.count <= sortie.nbinscriptionsmax %}
+                                        <button type="button" class="btn btn-success"><a id="link"
+                                                                                         href="{{ path('app_inscriptionSortie', {'id': sortie.id}) }}">S'inscrire</a>
                                         </button>
                                     {% endif %}
-                                    {% if ("now"|date("Y M d H i s") < sortie.datecloture|date("Y M d H i s")) %}
-                                    {% if (sortie.organisateur.pseudo!=user.pseudo) %}
-                                        {% set inscrit=false %}
-                                        {% for i in inscription %}
-                                            {% if (user.id == i.participantsnoparticipant.id) and (sortie.id  == i.sortiesnosortie.id) %}
-                                                {% set inscrit = true %}
-                                            {% endif %}
-                                        {% endfor %}
-                                        {% if inscrit==true %}
-                                            <button type="button" class="btn btn-success"><a id="link"
-                                                                                             href="{{ path('app_SupprInscription', {'id': sortie.id}) }}">Se
-                                                    désister</a>
-                                            </button>
-                                        {% else %}
-                                            <button type="button" class="btn btn-success"><a id="link"
-                                                                                             href="{{ path('app_inscriptionSortie', {'id': sortie.id}) }}">S'inscrire</a>
-                                            </button>
-                                        {% endif %}
-                                    {% endif %}
-                                </td>
                                 {% endif %}
-
-                            </tr>
-                        {% endif %}
+                            </td>
+                            {% endif %}
+                    {% endif %}
+                        </tr>
                     {% endif %}
                 {% endfor %}
                 </tbody>

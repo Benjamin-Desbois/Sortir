@@ -68,8 +68,6 @@ class InscriptionRepository extends ServiceEntityRepository
         $conn->close();
     }
 
-
-
     // /**
     //  * @return Inscription[] Returns an array of Inscription objects
     //  */
