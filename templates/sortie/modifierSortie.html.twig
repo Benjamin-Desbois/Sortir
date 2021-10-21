@@ -13,6 +13,23 @@
     <p>{{ form_row(modifierSortie.nbinscriptionsmax, {label: 'Nombre de places :'}) }}</p>
     <p>{{ form_row(modifierSortie.duree, {label: "Durée :"}) }} minutes</p>
     <p>{{ form_row(modifierSortie.descriptioninfos, {label: 'Description et infos :'}) }}</p>
-    <p>{{ form_row(modifierSortie.lieux_no_lieu, {label: "Lieu : "}) }}</p>
+    <p><label>Ville organisatrice :</label>{{ orga.sitesnosite.nom }}</p>
+    <div><label>Ville :</label>
+        <select id="villes">
+            {% for ville in villes %}
+                <option value="{{ ville.id }}">{{ ville.nomville }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <p>{{ form_row(modifierSortie.lieux_no_lieu, {label: "Lieu : ", id: "idlieu"}) }}</p>
+    <p id="rue">Rue :</p>
+    <p id="codePostal">Code Postal :</p>
+    <p id="latitude">Latitude :</p>
+    <p id="longitude">Longitude :</p>
+    <button type="submit" id="submit" class="btn btn-primary" name="modifier">Modifier</button>
     {{ form_end(modifierSortie) }}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('/JavaScript/sortie.js') }}"></script>
 {% endblock %}
