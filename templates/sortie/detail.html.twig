@@ -98,5 +98,12 @@
         <a class="btn btn-primary btn-lg text-ce" href="modifier sortie, c'est pour toi maxime" role="button">Modifier Sortie</a>
         </div>
     </div>
+    {% if sortie.etatsnoetat == 'Non-publié' %}
+    <div class="row text-center">
+        <div class="col">
+            <a class="btn btn-primary btn-lg text-ce" href="{{ path("publier_sortie", {'id': sortie.id}) }}" role="button">Publier ma Sortie</a>
+        </div>
+    </div>
+    {% endif %}
 
 {% endblock %}
