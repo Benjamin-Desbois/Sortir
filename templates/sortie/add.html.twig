@@ -14,23 +14,79 @@
 {% block contenu %}
 
     {{ form_start(formSortie) }}
-    <p>{{ form_row(formSortie.nom, {label: "Nom de la sortie :"}) }}</p>
-    <p>{{ form_row(formSortie.datedebut, {label: "Date et heure de la sortie :"}) }}</p>
-    <p>{{ form_row(formSortie.datecloture, {label: "Date limite d'inscription :"}) }}</p>
-    <p>{{ form_row(formSortie.nbinscriptionsmax, {label: 'Nombre de places :'}) }}</p>
-    <p>{{ form_row(formSortie.duree, {label: "Durée :"}) }} minutes</p>
-    <p>{{ form_row(formSortie.descriptioninfos, {label: 'Description et infos :'}) }}</p>
-    <p><label>Ville organisatrice :</label>{{ orga.sitesnosite.nom }}</p>
-    <div><label>Ville :</label>
-        <select id="villes">
-            {% for ville in villes %}
-                <option value="{{ ville.id }}">{{ ville.nomville }}</option>
-            {% endfor %}
-        </select>
+    <div class="row">
+        <div class="col-6 offset-3 textalign-center">
+            <label>Nom de la sortie :</label>
+
+        </div>
+        <p>{{ form_row(formSortie.nom, {label: "Nom de la sortie :"}) }}</p>
+        <div class="row">
+            <div class="col-3 offset-3">
+                <label>Ville organisatrice :</label>
+            </div>
+            <div class="col-3">
+                {{ orga.sitesnosite.nom }}
+            </div>
+        </div>
+
     </div>
-    <p>{{ form_row(formSortie.lieux_no_lieu, {label: "Lieu : "}) }}</p>
+    <div class="row">
+        <div class="col-5 offset-1">
+            <p>{{ form_row(formSortie.datedebut, {label: "Date et heure de la sortie :"}) }}</p>
+        </div>
+        <div class="col-5">
+            <p>{{ form_row(formSortie.datecloture, {label: "Date limite d'inscription :"}) }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5 offset-1">
+            <p>{{ form_row(formSortie.nbinscriptionsmax, {label: 'Nombre de places :'}) }}</p>
+        </div>
+        <div class="col-5">
+            <p>{{ form_row(formSortie.duree, {label: "Durée (minutes):"}) }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5 offset-1">
+
+        </div>
+        <div class="col-5">
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p>{{ form_row(formSortie.descriptioninfos, {label: 'Description et infos :'}) }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-5 offset-1">
+            <div><label>Ville :</label>
+                <select  id="villes" class="form-control">
+                    {% for ville in villes %}
+                        <option value="{{ ville.id }}">{{ ville.nomville }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="col-5">
+            <p id="codePostal">Code Postal :</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-5 offset-1">
+            <p>{{ form_row(formSortie.lieux_no_lieu, {label: "Lieu : ", id: "idlieu"}) }}</p>
+        </div>
+        <div class="col-5">
+
+        </div>
+    </div>
+
+
+
     <p id="rue">Rue :</p>
-    <p id="codePostal">Code Postal :</p>
+
     <p id="latitude">Latitude :</p>
     <p id="longitude">Longitude :</p>
     <button type="submit" name="enregistrer">Enregistrer</button>
@@ -44,52 +100,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-
-        $(document).ready(function () {
-            $(document).ready(lieuCP);
-            $("#villes").change(lieuCP);
-            $("#sortie_form_lieux_no_lieu").change(lieuData);
-
-            function lieuCP() {
-                let id = document.getElementById("villes").value;
-                let lieux = document.getElementById("sortie_form_lieux_no_lieu");
-                let cp = document.getElementById("codePostal");
-
-                fetch("/getLieuxByVille/" + id)
-                    .then(reponse => reponse.json())
-                    .then(data => {
-                        lieux.innerHTML = "";
-                        for (let lieu of data) {
-                            lieux.innerHTML += "<option value='" + lieu.id + "'>" + lieu.nom_lieu + "</option>";
-                        }
-                        lieuData();
-                    })
-                    .catch(erreur => console.log(erreur));
-
-                fetch("/getCodePostal/" + id)
-                    .then(reponse => reponse.json())
-                    .then(data => {
-                        cp.innerText = "Code Postal : " + data[0].code_postal;
-                    })
-                    .catch(erreur => console.log(erreur));
-            }
-
-            function lieuData() {
-                let id = document.getElementById("sortie_form_lieux_no_lieu").value;
-                let rue = document.getElementById("rue");
-                let latitude = document.getElementById("latitude");
-                let longitude = document.getElementById("longitude");
-
-                fetch("/getLieu/" + id)
-                    .then(reponse => reponse.json())
-                    .then(data => {
-                        rue.innerText = "Rue : " + data[0].rue;
-                        latitude.innerText = "Latitude : " + data[0].latitude;
-                        longitude.innerText = "Longitude : " + data[0].longitude;
-                    })
-                    .catch(erreur => console.log(erreur));
-            }
-        });
-    </script>
+    <script src="{{ asset('/JavaScript/sortie.js') }}"></script>
 {% endblock %}
