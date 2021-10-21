@@ -8,12 +8,12 @@
             <h1>Modifier mon Profil</h1>
         </div>
         <form action="modifierProfil" method="post">
-            <div class="row">
+            <div class="row offset-1">
                 <div class="col-4">
                 <p><label for="pseudo">Pseudo : </label> <input class="form-control" type="text" placeholder="{{ user.pseudo }}" name="pseudo"></p>
                 </div>
             </div>
-            <div class="row">
+            <div class="row offset-1">
                 <div class="col-4">
                     <p><label for="nom">Nom : </label> <input class="form-control" type="text" placeholder="{{ user.nom }}" name="nom"></p>
                 </div>
@@ -21,7 +21,7 @@
                     <p><label for="prenom">Prénom : </label> <input class="form-control" type="text" placeholder="{{ user.prenom }}" name="prenom"></p>
                 </div>
             </div>
-            <div class="row">
+            <div class="row offset-1">
                 <div class="col-4">
                     <p><label for="numTel">N° de Téléphone : </label> <input class="form-control" type="text" placeholder="{{ user.telephone }}" name="numTel"></p>
                 </div>
@@ -29,7 +29,7 @@
                     <p><label for="email">E-mail : </label> <input class="form-control" type="email" placeholder="{{ user.mail }}" name="email"></p>
                 </div>
             </div>
-            <div class="row">
+            <div class="row offset-1">
                 <div class="col-4">
                     <p><label for="password" >Mot de passe : </label> <input class="form-control" type="password" name="password"></p>
                 </div>
@@ -37,7 +37,7 @@
                     <p><label for="newpassword">Nouveau mot de passe : </label> <input class="form-control" type="password" name="newpassword"></p>
                 </div>
             </div>
-            <div class="row">
+            <div class="row offset-1">
                 <div class="col-4">
                 <p><label for="site">Site : </label> <select class="form-control" name="site">
                         <option selected="selected">{{ site.nom }}</option>
@@ -50,12 +50,12 @@
 
             {{ error }}
 
-            <div class="row">
+            <div class="row offset-1">
                 <div class="col offset-1">
-                    <button type="submit" id="submit" class="btn btn-primary" name="modifier">Modifier</button>
+                    <button type="submit" id="submit" class="btn btn-primary btn-lg" name="modifier">Modifier</button>
                 </div>
                 <div class="col offset-1">
-                    <button class="btn btn-primary"><a id="link" href="{{ path('app_profil') }}">Retour à mon profil</a></button>
+                    <button class="btn btn-primary btn-lg"><a id="link" href="{{ path('app_profil') }}">Retour à mon profil</a></button>
                 </div>
             </div>
         </form>
