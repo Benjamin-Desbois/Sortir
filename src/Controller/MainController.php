@@ -9,6 +9,7 @@ use App\Repository\InscriptionRepository;
 use App\Repository\ParticipantRepository;
 use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,6 +18,7 @@ class MainController extends AbstractController
 {
     /**
      * @Route("/home", name="app_home")
+     * @throws Exception
      */
     public function home(SortieRepository $sortieRepo, SiteRepository $siteRepo, ParticipantRepository $participantRepo, InscriptionRepository $inscriptionRepo): Response
 
@@ -30,6 +32,7 @@ class MainController extends AbstractController
             $sorties = $sortieRepo->findALl();
             $sites = $siteRepo->findAll();
             $participant = $participantRepo ->findALl();
+            $sortieRepo->verifyDate();
 
             return $this->render('main/index.html.twig', ['user'=>$user, 'sorties'=>$sorties, 'sites'=>$sites, 'participant'=>$participant,'orga'=>$orga, 'inscription'=>$inscritpion]);
         }

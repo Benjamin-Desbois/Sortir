@@ -3,10 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Sortie;
+use DateInterval;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use mysqli;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * @method Sortie|null find($id, $lockMode = null, $lockVersion = null)
@@ -46,6 +48,66 @@ class SortieRepository extends ServiceEntityRepository
         $conn->close();
     }
 
+    /**
+     * @throws \Exception
+     */
+    public function verifyDate() {
+
+        $sorties = $this->findAll();
+
+        foreach ($sorties as $sortie) {
+
+            $dateCloture = $sortie->getDatecloture();
+            $dateDebut = $sortie->getDatedebut();
+            $minutes_to_add = $sortie->getDuree();
+            $interval =new DateInterval('PT' . $minutes_to_add . 'M');
+            $dateDuree = clone $dateDebut;
+            $dateDuree->add($interval);
+            $id = $sortie->getId();
+            $now = date_create();
+
+            $servername = "localhost";
+            $username = "root";
+            $dbname = "sortie";
+            $password ='';
+
+// Create connection
+
+            $conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            if ($dateCloture < $now and $dateDebut > $now) {
+                if ($sortie->getEtatsNoEtat()->getId() == '4') {
+                    $sql = "UPDATE sortie SET etats_no_etat_id = '6' WHERE id=$id";
+                }
+            }
+            if ($dateDebut < $now and $dateDuree > $now) {
+                if ($sortie->getEtatsNoEtat()->getId() == '4' or $sortie->getEtatsNoEtat()->getId() == '3') {
+                    $sql = "UPDATE sortie SET etats_no_etat_id = '3' WHERE id=$id";
+                }
+            }
+            if ($dateDuree < $now) {
+                if ($sortie->getEtatsNoEtat()->getId() == '4' or $sortie->getEtatsNoEtat()->getId() == '3' or $sortie->getEtatsNoEtat()->getId() == '6') {
+                    $sql = "UPDATE sortie SET etats_no_etat_id = '1' WHERE id=$id";
+                }
+            }
+
+            if (isset($sql)) {
+                if ($conn->query($sql) === TRUE) {
+                    echo "Record updated successfully";
+                } else {
+                    echo "Error updating record: " . $conn->error;
+                }
+            }
+
+            $conn->close();
+
+        }
+
+    }
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
     //  */

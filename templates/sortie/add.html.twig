@@ -33,8 +33,9 @@
     <p id="codePostal">Code Postal :</p>
     <p id="latitude">Latitude :</p>
     <p id="longitude">Longitude :</p>
-    <input type="submit" value="Enregistrer">
-    <input type="submit" value="Publiez la sortie">
+    <button type="submit" name="enregistrer">Enregistrer</button>
+    <button type="submit" name="publier">Publiez la sortie</button>
+
     <a href="{{ path('app_home') }}">
         <button type="button">Annuler</button>
     </a>
@@ -62,7 +63,7 @@
                         for (let lieu of data) {
                             lieux.innerHTML += "<option value='" + lieu.id + "'>" + lieu.nom_lieu + "</option>";
                         }
-                         lieuData();
+                        lieuData();
                     })
                     .catch(erreur => console.log(erreur));
 
