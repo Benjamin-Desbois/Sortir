@@ -2,11 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\SortieFormType;
 use App\Form\UpdateSortieType;
 use App\Repository\EtatRepository;
+use App\Repository\InscriptionRepository;
 use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
@@ -48,15 +48,18 @@ class SortieController extends AbstractController
     }
 
     /** @Route ("/sortie/{id}", name="detail", requirements={"id":"\d+"}) */
-    public function detail($id, SortieRepository $sortieRepo): Response
+    public function detail($id, SortieRepository $sortieRepo, InscriptionRepository $inscriptionRepo): Response
     {
+
         $sortie = $sortieRepo->find($id);
+        $inscription = $inscriptionRepo->findBy(['sorties_no_sortie'=>$id]);
         $lieu = $sortie->getLieuxNoLieu();
         $ville = $lieu->getVillesNoVille();
 
         return $this->render('sortie/detail.html.twig', ['sortie' => $sortie,
             'lieu' => $lieu,
-            'ville' => $ville]);
+            'ville' => $ville,
+            'inscription'=> $inscription]);
     }
 
     /**

@@ -93,17 +93,33 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="card w-75 col text-center" id="margin">
+            <div class="card-body">
+                <h5 class="card-title">Liste des participants </h5>
+                {% for inscriptions in inscription %}
+                    <div class="row-cols-1">
+                        <tr>
+                            {{ inscriptions.participantsnoparticipant }}
+                        </tr>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     <div class="row text-center">
         <div class="col">
-        <a class="btn btn-primary btn-lg text-ce" href="{{ path('modifier_sortie', {'id': sortie.id}) }}" role="button">Modifier Sortie</a>
+            <a class="btn btn-primary btn-lg text-ce" href="{{ path('modifier_sortie', {'id': sortie.id}) }}"
+               role="button">Modifier Sortie</a>
         </div>
     </div>
     {% if sortie.etatsnoetat == 'Non-publié' %}
-    <div class="row text-center">
-        <div class="col">
-            <a class="btn btn-primary btn-lg text-ce" href="{{ path("publier_sortie", {'id': sortie.id}) }}" role="button">Publier ma Sortie</a>
+        <div class="row text-center">
+            <div class="col">
+                <a class="btn btn-primary btn-lg text-ce" href="{{ path("publier_sortie", {'id': sortie.id}) }}"
+                   role="button">Publier ma Sortie</a>
+            </div>
         </div>
-    </div>
     {% endif %}
 
 {% endblock %}

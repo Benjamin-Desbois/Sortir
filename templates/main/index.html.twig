@@ -94,7 +94,7 @@
                             </td>
                             <td>{{ sortie.datedebut|date("d M Y H:i") }}</td>
                             <td>{{ sortie.datecloture|date("d M Y") }}</td>
-                            <td>{{ sortie.sortieinscription.count }}/{{ sortie.nbinscriptionsmax }}
+                            <td>{{ sortie.sortieinscription.count }}/{{ sortie.nbinscriptionsmax }}/{{ sortie.participantsnoparticipant.count }}
                             </td>
                             <td>{{ sortie.etatsnoetat }}</td>
                             <td> {% set inscrit=false %}
@@ -147,8 +147,15 @@
                 </tbody>
             </table>
         </div>
-        <script src="{{ asset('/JavaScript/home.js') }}">
+
+        {#  #}
+        <!-- tsParticles container -->
+        <div id="tsparticles"></div>
+        <script async="" defer="" src="https://buttons.github.io/buttons.js"></script>
+
+        <script src="{{ asset('/JavaScript/snow.js') }}">
         </script>
+
     </div>
     <div class="col-3 offset-1">
         <a href="{{ path('add') }}" class="btn btn-lg btn-primary" role="button" id="creation">Créer une sortie</a>
