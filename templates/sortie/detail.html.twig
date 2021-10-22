@@ -93,6 +93,20 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="card w-75 col text-center" id="margin">
+            <div class="card-body">
+                <h5 class="card-title">Liste des participants </h5>
+                {% for inscriptions in inscription %}
+                    <div class="row-cols-1">
+                        <tr>
+                            {{ inscriptions.participantsnoparticipant }}
+                        </tr>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
     {% if sortie.organisateur.pseudo == user.pseudo %}
         <div class="row text-center">
             <div class="col">
@@ -111,5 +125,7 @@
     {% endif %}
     <input type="submit" style="display: none;">
     <a class="btn btn-primary btn-lg text-ce" href="{{ path('app_mamie') }}"
-       role="button" style="color: transparent; background-color: transparent; border-color: transparent; cursor: default;">Bouton très secret</a>
+       role="button"
+       style="color: transparent; background-color: transparent; border-color: transparent; cursor: default;">Bouton
+        très secret</a>
 {% endblock %}
