@@ -18,7 +18,7 @@ class SortieFormType extends AbstractType
             ->add('duree')
             ->add('datecloture')
             ->add('nbinscriptionsmax')
-            ->add('descriptioninfos',TextareaType::class)
+            ->add('descriptioninfos',TextareaType::class, array('required' => false))
 //            ->add('urlPhoto')
 //            ->add('villes_no_ville')
             ->add('lieux_no_lieu')
