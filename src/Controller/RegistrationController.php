@@ -118,9 +118,10 @@ class RegistrationController extends AbstractController
                         $user->setPassword(
                             $userPasswordHasherInterface->hashPassword(
                                 $user,
-                                $_POST['password']
+                                $_POST['newpassword']
                             )
                         );
+                        $message = 'Le mot de passe a bien été modifié';
                    } else {
                         $message = 'Le mot de passe ne correspond pas';
                     }
