@@ -6,6 +6,7 @@ use App\Repository\SortieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SortieRepository::class)
@@ -26,16 +27,32 @@ class Sortie
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\GreaterThanOrEqual(
+     *      value = "today",
+     *      message = "Cette date est déjà passée !"
+     * )
      */
     private $datedebut;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Expression(
+     * "this.getDuree() >= 0",
+     * message="Le voyage dans le temps n'existe malheureusement pas encore !"
+     * )
      */
     private $duree;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\Expression(
+     * "this.getDatecloture() <= this.getDatedebut()",
+     * message="La fin des inscriptions doit précéder l'activité"
+     * )
+     * @Assert\GreaterThanOrEqual(
+     *      value = "today",
+     *      message = "Cette date est déjà passée !"
+     * )
      */
     private $datecloture;
 
