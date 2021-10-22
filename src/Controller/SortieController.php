@@ -53,10 +53,11 @@ class SortieController extends AbstractController
         $sortie = $sortieRepo->find($id);
         $lieu = $sortie->getLieuxNoLieu();
         $ville = $lieu->getVillesNoVille();
+        $user = $this->getUser();
 
         return $this->render('sortie/detail.html.twig', ['sortie' => $sortie,
             'lieu' => $lieu,
-            'ville' => $ville]);
+            'ville' => $ville, 'user' => $user]);
     }
 
     /**
@@ -111,6 +112,15 @@ class SortieController extends AbstractController
             'ville' => $lieu->getVillesNoVille()
         );
         return new JsonResponse($lieuSelect);
+    }
+
+    /**
+     * @Route("/grandmere", name="app_mamie")
+     */
+    public function afficherSecret() {
+
+        return $this->render('sortie/secret.html.twig');
+
     }
 
     /**

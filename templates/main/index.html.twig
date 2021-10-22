@@ -114,10 +114,12 @@
                             </td>
                             <td>
                             {% if (sortie.organisateur.pseudo == user.pseudo) %}
-                                <button type="button" class="btn btn-danger"><a id="link"
-                                                                                href="{{ path('annuler_sortie', {'id': sortie.id}) }}"
-                                                                                id="noUnderline">Supprimer</a>
-                                </button>
+                                {% if (sortie.etatsnoetat != 'Annulé') %}
+                                    <button type="button" class="btn btn-danger"><a id="link"
+                                                                                    href="{{ path('annuler_sortie', {'id': sortie.id}) }}"
+                                                                                    id="noUnderline">Supprimer</a>
+                                    </button>
+                                {% endif %}
                             {% endif %}
                             {% if ("now"|date("Y M d H i s") < sortie.datecloture|date("Y M d H i s")) %}
                                 {% if (sortie.organisateur.pseudo!=user.pseudo) %}
