@@ -1,9 +1,12 @@
-
+body{
+    background-image: url("https://blog.depositphotos.com/wp-content/uploads/2017/07/Soothing-nature-backgrounds-2.jpg.webp");
+}
 
 .row{
     padding: 1em;
 }
 .container{
+    opacity: 0.88;
     background-color: #F1F1F1;
     font-family: "Gill Sans", sans-serif;
 /*    background-image: url("https://image.shutterstock.com/z/stock-photo-old-woman-with-pistol-on-a-white-background-182174168.jpg") ;
@@ -27,6 +30,7 @@
 
 #condition{
     margin-top: 10px;
+    margin-left: 200px;
 }
 
 #title{
@@ -42,6 +46,8 @@
 #image{
     border-radius: 500px;
     margin-left: 10px;
+    height: 200px;
+    width: 200px;
 }
 
 #profil{
