@@ -15,52 +15,43 @@
 
     {{ form_start(formSortie) }}
     <div class="row">
-        <div class="col-6 offset-3 textalign-center">
-            <label>Nom de la sortie :</label>
-
+        <div class="col-6 offset-3 text-center">
+            <p>{{ form_row(formSortie.nom, {label: "Nom de la sortie :"}) }}</p>
         </div>
-        <p>{{ form_row(formSortie.nom, {label: "Nom de la sortie :"}) }}</p>
+
         <div class="row">
-            <div class="col-3 offset-3">
+            <div class="col-3 offset-4">
                 <label>Ville organisatrice :</label>
             </div>
             <div class="col-3">
-                {{ orga.sitesnosite.nom }}
+                <strong>{{ orga.sitesnosite.nom }}</strong>
             </div>
         </div>
 
     </div>
     <div class="row">
-        <div class="col-5 offset-1">
+        <div class="col-4 offset-2 text-center">
             <p>{{ form_row(formSortie.datedebut, {label: "Date et heure de la sortie :"}) }}</p>
         </div>
-        <div class="col-5">
+        <div class="col-4 text-center">
             <p>{{ form_row(formSortie.datecloture, {label: "Date limite d'inscription :"}) }}</p>
         </div>
     </div>
     <div class="row">
-        <div class="col-5 offset-1">
+        <div class="col-4 offset-2 text-center">
             <p>{{ form_row(formSortie.nbinscriptionsmax, {label: 'Nombre de places :'}) }}</p>
         </div>
-        <div class="col-5">
+        <div class="col-4 text-center">
             <p>{{ form_row(formSortie.duree, {label: "Durée (minutes):"}) }}</p>
         </div>
     </div>
     <div class="row">
-        <div class="col-5 offset-1">
-
-        </div>
-        <div class="col-5">
-
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
+        <div class="col-8 offset-2 text-center">
             <p>{{ form_row(formSortie.descriptioninfos, {label: 'Description et infos :'}) }}</p>
         </div>
     </div>
     <div class="row">
-        <div class="col-5 offset-1">
+        <div class="col-4 offset-2 text-center">
             <div><label>Ville :</label>
                 <select  id="villes" class="form-control">
                     {% for ville in villes %}
@@ -69,32 +60,36 @@
                 </select>
             </div>
         </div>
-        <div class="col-5">
+        <div class="col-4 text-center">
+            <p>{{ form_row(formSortie.lieux_no_lieu, {label: "Lieu : ", id: "idlieu"}) }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 offset-2 text-center">
             <p id="codePostal">Code Postal :</p>
+        </div>
+        <div class="col-4 text-center">
+            <p id="rue">Rue :</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 offset-2 text-center">
+            <p id="latitude">Latitude :</p>
+        </div>
+        <div class="col-4 text-center">
+            <p id="longitude">Longitude :</p>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-5 offset-1">
-            <p>{{ form_row(formSortie.lieux_no_lieu, {label: "Lieu : ", id: "idlieu"}) }}</p>
-        </div>
-        <div class="col-5">
-
+        <div class="col-6 offset-3 text-center">
+            <button class="btn btn-primary" type="submit" name="enregistrer">Enregistrer</button>
+            <button class="btn btn-primary" type="submit" name="publier">Publiez la sortie</button>
+            <a href="{{ path('app_home') }}">
+                <button class="btn btn-primary" type="button">Annuler</button>
+            </a>
         </div>
     </div>
-
-
-
-    <p id="rue">Rue :</p>
-
-    <p id="latitude">Latitude :</p>
-    <p id="longitude">Longitude :</p>
-    <button type="submit" name="enregistrer">Enregistrer</button>
-    <button type="submit" name="publier">Publiez la sortie</button>
-
-    <a href="{{ path('app_home') }}">
-        <button type="button">Annuler</button>
-    </a>
     {{ form_end(formSortie) }}
 
 {% endblock %}
